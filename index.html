@@ -1,273 +1,295 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-        />
-        <title>webview_mbr</title>
-        <link
-            rel="stylesheet"
-            href="assets/css/bootstrap.min.css"
-        />
-        <link rel="stylesheet" href="assets/css/styles.min.css" />
-            <link rel="stylesheet" href="assets/modules/izitoast/css/iziToast.min.css">
-    <link rel="stylesheet" href="assets/modules/datatables/datatables.min.css">
-    <link rel="stylesheet" href="assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aclonica" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aclonica" />
-    <link rel="stylesheet" href="assets/modules/jqvmap/dist/jqvmap.min.css">
-    <link rel="stylesheet" href="assets/modules/summernote/summernote-bs4.css">
-    <link rel="stylesheet" href="assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/modules/bootstrap-daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" href="assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Welcome</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.min.css" />
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-        <style>
-            /* Hide scrollbar for Chrome, Safari and Opera */
-            .show_btnTime::-webkit-scrollbar {
-                display: none;
-            }
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap.bundle.min.js"></script>
 
-            /* Hide scrollbar for IE and Edge */
-            .show_btnTime {
-                -ms-overflow-style: none;
-            }
-        </style>
-    </head>
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        
+        .show_btnTime::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE and Edge */
+        
+        .show_btnTime {
+            -ms-overflow-style: none;
+        }
 
-    <body>
-        <div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 offset-md-0" style="height: 250px;" id="room_name">
-                        <h1 style="padding-top: 35px;padding-right: 0px;color: white;font-family: 'Alfa Slab One', cursive;">Room Name
+        html, body {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-0" style="height: 250px;" id="room_name">
+                    <h1 style="padding-top: 35px;padding-right: 0px;color: white;font-family: 'Alfa Slab One', cursive;">Room Name
                         </h1>
-                    </div>
-                    <div class="col-md-6" id="time" align="right">
-                        <h1
-                            style="padding-top: 35px;color: white;font-family: 'Alfa Slab One', cursive;"
-                            id="showing_time"
-                        ></h1>
-                        <h4
-                            style="padding-top: 35px;color: white;font-family: 'Alfa Slab One', cursive;"
-                            id="showing_date"
-                        ></h4>
+                </div>
+                <div class="col-md-6" id="time" align="right">
+                    <h1 style="padding-top: 35px;color: white;font-family: 'Alfa Slab One', cursive;" id="showing_time"></h1>
+                    <h4 style="padding-top: 35px;color: white;font-family: 'Alfa Slab One', cursive;" id="showing_date"></h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 offset-md-0" style="height: 100px;" id="room_name">
+                    <small style="font-size: 23px;color: yellow;font-family: 'Alfa Slab One', cursive;">Room Status</small>
+                </div>
+                <div class="col-md-4 offset-md-0" id="scheduling">
+                    <div id="time_value">
+                        <h2 id="label_start" style="color: white;"></h2>
+                        <h1 id="start_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 80px"></h1>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3 offset-md-0" style="height: 100px;" id="room_name">
-                        <small style="font-size: 23px;color: yellow;font-family: 'Alfa Slab One', cursive;">Room Status</small>
+                <div class="col-md-4 offset-md-0" id="scheduling">
+                    <div id="time_value">
+                        <h2 id="label_end" style="color: white;"></h2>
+                        <h1 id="end_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 80px"></h1>
                     </div>
-                    <div class="col-md-4 offset-md-0" id="scheduling">
-                        <div id="time_value">
-                            <h2 id="label_start" style="color: white;"></h2>
-                            <h1 id="start_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 80px"></h1>
-                        </div>
-                    </div>
-                    <div class="col-md-4 offset-md-0" id="scheduling">
-                        <div id="time_value">
-                            <h2 id="label_end" style="color: white;"></h2>
-                            <h1 id="end_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 80px"></h1>
-                        </div>
-                    </div>
-                    <div class="col-md-1 offset-md-0" id="btn_action" hidden>
-                        <button class="btn btn-dark" id="submit_sch" data-toggle="tooltip" data-placement="right" title="Save"><i class="fa fa-save" onclick="save_sch();"></i></button>
-                        <button class="btn btn-dark" id="reset_sch" data-toggle="tooltip" data-placement="right" title="Reset"><i class="fa fa-refresh" onclick="cancel_sch();"></i></button>
-                        <button class="btn btn-dark" id="cancel_sch" data-toggle="tooltip" data-placement="right" title="Cancel" onclick="close_sch();"><i class="fa fa-close"></i></button>
-                    </div>
+                </div>
+                <div class="col-md-1 offset-md-0" id="btn_action" hidden>
+                    <button type="button" class="btn btn-dark" id="submit_sch" data-toggle="tooltip" data-placement="right" title="Save"  onclick="saveData();"><i class="fa fa-save"></i></button>
+                    <button type="button" class="btn btn-dark" id="reset_sch" data-toggle="tooltip" data-placement="right" title="Reset" onclick="reset();"><i class="fa fa-refresh"></i></button>
                 </div>
             </div>
         </div>
-
-        <div
-            class="col-md-12 show_btnTime"
-            style="height: 250px;overflow-x: scroll;white-space: nowrap;"
-            id="show_btnTime"
-        ></div>
-
-        <!--Modal Login Form-->
-        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <i class="fas fa-envelope prefix grey-text"></i>
-          <input type="email" id="defaultForm-email" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
-        </div>
-
-        <div class="md-form mb-4">
-          <i class="fas fa-lock prefix grey-text"></i>
-          <input type="password" id="defaultForm-pass" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
-        </div>
-
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-primary">Login</button>
-      </div>
     </div>
-  </div>
-</div>
-        <script src="assets/jquery.min.js"></script>
-        <script src="assets/jquery.js"></script>
-        <!-- <script src="assets/bootstrap.bundle.min.js"></script> -->
-        <script src="assets/modules/popper.js"></script>
-    <script src="assets/modules/tooltip.js"></script>
-    <script src="assets/modules/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
-    <script src="assets/modules/moment.min.js"></script>
-    <script src="assets/js/stisla.js"></script>
-    <script src="assets/modules/sweetalert/sweetalert.min.js"></script>
 
-    <!-- JS Libraies -->
-    <script src="assets/modules/datatables/datatables.min.js"></script>
-    <script src="assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-    <script src="assets/modules/jquery.sparkline.min.js"></script>
-    <script src="assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
-    <script src="assets/modules/summernote/summernote-bs4.js"></script>
-    <script src="assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
-    <script src="assets/modules/izitoast/js/iziToast.min.js"></script>
-    <script src="assets/modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
-    <script src="assets/modules/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script src="assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-    <script src="assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
-    <script src="assets/modules/select2/dist/js/select2.full.min.js"></script>
-    <script src="assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
-    <script src="assets/js/page/forms-advanced-forms.js"></script>
+    <div class="row">
+        <div class="col-md-12 show_btnTime" style="overflow-x: scroll;white-space: nowrap;" id="show_btnTime"></div>
+    </div>
 
-    <!-- Template JS File -->
-    <script src="assets/js/scripts.js"></script>
-    <script src="assets/js/custom.js"></script>
-    </body>
-    <script type="text/javascript">
+    <!--Modal Login Form-->
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    
+                </form>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <label data-error="wrong" data-success="right" for="employee_id">Your Employee ID</label>
+                        <input type="text" id="employee_id" autocomplete="off" name="employee_id" class="form-control">
+                    </div>
 
-        var startTime = '';
-        var endTime = '';
+                    <div class="md-form mb-4">
+                        <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                        <input type="password" id="defaultForm-pass" class="form-control">
+                    </div>
 
-        function getRoom() {
-            $.ajax({
-                type: "GET",
-                url: "url",
-                data: "data",
-                dataType: "json",
-                success: function(response) {}
-            });
-        }
-        
-        function login(value) {
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-lg btn-warning">Cancel</button>
+                    <button type="submit" class="btn btn-lg btn-primary">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        }
+</body>
+<script type="text/javascript">
 
-        function bootTime() {
-            var today = new Date();
-            var d = today.getDay();
-            var dt = today.getDate();
-            var mo = String(today.getMonth() + 1).padStart(2, "0");
-            var y = today.getFullYear();
-            var h = String(today.getHours()).padStart(2, "0");
-            var m = String(today.getMinutes()).padStart(2, "0");
-            var s = String(today.getSeconds()).padStart(2, "0");
-            // m = checkTime(m);
-            // s = checkTime(s);
-            d = checkDay(d);
-            document.getElementById("showing_time").innerHTML =
-                h + ":" + m + ":" + s;
-            document.getElementById("showing_date").innerHTML =
-                d + ", " + dt + "/" + mo + "/" + y;
-            $("#btn_"+h+"00").focus();
-            var t = setTimeout(bootTime, 500);
-            // console.log(h);
-        }
+    var startTime = "";
+    var endTime = "";
+    localStorage.setItem("baseUrl", "http://localhost/meetingrb");
 
-        function checkDay(i) {
-            if (i == 1) {
-                i = "Monday";
-            } else if (i == 2) {
-                i = "Thursday";
-            } else if (i == 3) {
-                i = "Wednesday";
-            } else if (i == 4) {
-                i = "Tuesday";
-            } else if (i == 5) {
-                i = "Friday";
-            } else if (i == 6) {
-                i = "Saturday";
-            } else {
-                i = "Sunday";
-            }
-            return i;
-        }
-
-        function checkTime(i) {
-            if (i < 10) {
-                i = "0" + i;
-            }
-            return i;
-        }
-
-        function btnTime() {
-            var today = new Date();
-            var h = today.getHours();
-            for (var i = 0; i < 25; i++) {
-                var ix = checkTime(i);
-
-                var html1 =
-                    '<button class="btn btn-primary btn btn-success" type="button" style="margin-top: 40px;width: 125px;height: 125px;font-size: 50px;" id="btn_'+ix+'00" name="btn_'+ix+'00" value="'+ix+':00" onclick="setStart(\'' + ix + ':00\')">'+ix+'<sup>00</sup></button>';
-                $("#show_btnTime").append(html1);
-                var html2 =
-                    '<button class="btn btn-primary btn btn-success" type="button" style="margin-top: 40px;width: 125px;height: 125px;font-size: 50px;" id="btn_'+ix+'30" name="btn_'+ix+'30" value="'+ix+':30" onclick="setStart(\'' + ix + ':30\')">'+ix+'<sup>30</sup></button>';
-                $("#show_btnTime").append(html2);
-            }
-        }
-
-        function setStart(value) {
-            
-            if (startTime == '') {
-                startTime = value;
-                $('#label_start').text('Start');
-                $('#start_from').text(value);
-                $('#btn_action').prop('hidden', false);
-            } else {
-                endTime = value;
-                $('#label_end').text('End');
-                $('#end_from').text(value);
-            }
-        }
-
-        function save_sch() {
-            alert('Saved');
-            location.reload();
-        }
-
-        function cancel_sch() {
-            // location.reload();
-            startTime = "";
-            $('#start_from').text(startTime);
-            $('#end_from').text(startTime);
-        }
-
-        function close_sch() {
-            location.reload();
-        }
-
-        function cancel() {
-            startTime = '';
-            endTime = '';
-        }
-
-        $(document).ready(function() {
-            bootTime();
-            btnTime();
+    function getRoom() {
+        $.ajax({
+            type: "GET",
+            url: "url",
+            data: "data",
+            dataType: "json",
+            success: function(response) {}
         });
-    </script>
+    }
+
+    function login(value) {
+
+        // JSON.stringify(data);
+
+        // const data = new FormData();
+        // data.append('username', 'admin');
+        // data.append('password', 'admin');
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/form-data'
+            }
+        }
+        var baseUrl = localStorage.getItem("baseUrl");
+
+        fetch(baseUrl + '/api/users/check_login', options)
+            .then(res => res.json())
+            .then(res => console.log(res));
+    }
+
+    function bootTime() {
+        var today = new Date();
+        var d = today.getDay();
+        var dt = today.getDate();
+        var mo = String(today.getMonth() + 1).padStart(2, "0");
+        var y = today.getFullYear();
+        var h = String(today.getHours()).padStart(2, "0");
+        var m = String(today.getMinutes()).padStart(2, "0");
+        var s = String(today.getSeconds()).padStart(2, "0");
+        // m = checkTime(m);
+        // s = checkTime(s);
+        d = checkDay(d);
+        document.getElementById("showing_time").innerHTML =
+            h + ":" + m + ":" + s;
+        document.getElementById("showing_date").innerHTML =
+            d + ", " + dt + "/" + mo + "/" + y;
+        $("#btn_" + h + "00").focus();
+        var t = setTimeout(bootTime, 500);
+        // console.log(h);
+    }
+
+    function checkDay(i) {
+        if (i == 1) {
+            i = "Monday";
+        } else if (i == 2) {
+            i = "Thursday";
+        } else if (i == 3) {
+            i = "Wednesday";
+        } else if (i == 4) {
+            i = "Tuesday";
+        } else if (i == 5) {
+            i = "Friday";
+        } else if (i == 6) {
+            i = "Saturday";
+        } else {
+            i = "Sunday";
+        }
+        return i;
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    function btnTime() {
+        // var today = new Date();
+        // var h = today.getHours();
+        let sequence = 0;
+        for (var i = 0; i < 25; i++) {
+            var ix = checkTime(i);
+            var html1 =
+                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="'+ sequence +'" name="btn_' + ix + ':00" value="' + ix + ':00" onclick="setStart(\'' + ix + ':00\')">' + ix + '<sup>:00</sup></button>';
+            $("#show_btnTime").append(html1);
+            sequence++;
+
+            var html2 =
+                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="'+ sequence +'" name="btn_' + ix + ':30" value="' + ix + ':30" onclick="setStart(\'' + ix + ':30\')">' + ix + '<sup>:30</sup></button>';
+            $("#show_btnTime").append(html2);
+            sequence++;
+
+        }
+    }
+
+    function setStart(value) {
+
+        if (endTime != "") {
+            return false;
+        }
+
+        var btnChoose = document.querySelector("button[value='" + value + "']");
+        btnChoose.classList.add('btn-info');
+        btnChoose.classList.remove('btn-success');
+        btnChoose.setAttribute("disabled", "");
+
+        if (startTime == '') {
+            startTime = value;
+            document.getElementById('label_start').textContent = 'Start';
+            document.getElementById('start_from').textContent = value;
+
+            btnBefore(value, btnChoose.id);
+        } else {
+            endTime = value;
+            document.getElementById('label_end').textContent = 'End';
+            document.getElementById('end_from').textContent = value;
+            document.getElementById('btn_action').removeAttribute('hidden');
+
+            // $('#btn_action').prop('hidden', false);
+        }
+    }
+
+    function btnBefore(value, btn) {
+        
+        var time = value;
+        var MS_PER_MINUTE = 60000;
+        
+        for (let i = 0; i < parseInt(btn); i++) {
+            let tm    = time.split(":");
+            let hours   = parseInt(tm[0]);
+            let minutes = parseInt(tm[1]);
+            let today   = new Date();
+            let month   = today.getMonth();
+            let day     = today.getDate();
+            let year    = today.getFullYear();
+            let choose  = new Date(year, month, day, hours, minutes);
+
+            let myStartDate = new Date(choose - 30 * MS_PER_MINUTE);
+            time = String(myStartDate.getHours()).padStart(2, "0") + ':' + String(myStartDate.getMinutes()).padStart(2, "0");
+            
+            // change button color to yellow 
+            let btnBefore = document.querySelector("button[value='"+time+"']");
+            btnBefore.classList.add('btn-warning');
+            btnBefore.classList.remove('btn-success');
+            btnBefore.setAttribute("disabled", "");
+        }
+    }
+
+    function saveData() {
+        // reset();
+        if (localStorage.getItem('_employeeId') === null || !localStorage.getItem('_employeeId')) {
+            $('#modalLoginForm').modal({
+                backdrop: 'static',
+                keyboard: false
+            }); 
+        }
+    }
+
+    function reset() {
+        
+        $('#show_btnTime :button').addClass('btn-success').removeClass('btn-warning btn-info').removeAttr('disabled');
+        
+        endTime = "";
+        startTime = "";
+
+        document.getElementById('label_start').textContent = '';
+        document.getElementById('label_end').textContent = '';
+        document.getElementById('btn_action').setAttribute('hidden', true);
+
+        document.querySelector('#start_from').textContent = "";
+        document.querySelector('#end_from').textContent = "";
+    }
+
+    $(document).ready(function() {
+        bootTime();
+        btnTime();
+    });
+</script>
+
 </html>
