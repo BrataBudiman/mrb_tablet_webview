@@ -159,7 +159,7 @@
     document.getElementById('titleRoom').textContent = localStorage.getItem('nameTablet');
 
     if (localStorage.getItem("baseUrl") == null) {
-        localStorage.setItem("baseUrl", "http://192.168.100.19/meetingrb");
+        localStorage.setItem("baseUrl", "http://localhost/meetingrb");
     }
 
     function refresh() {
@@ -220,10 +220,11 @@
     }
 
     function btnTime() {
-        // var today = new Date();
-        // var h = today.getHours();
+        var today = new Date();
+        var h = String(today.getHours()).padStart(2, "0");
+
         let sequence = 0;
-        for (var i = 0; i < 25; i++) {
+        for (var i = 0; i < 24; i++) {
             var ix = checkTime(i);
             var html1 =
                 '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="' + sequence + '" name="btn_' + ix + ':00" value="' + ix + ':00" onclick="setStart(\'' + ix + ':00\')">' + ix + '<sup>:00</sup></button>';
@@ -234,8 +235,9 @@
                 '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="' + sequence + '" name="btn_' + ix + ':30" value="' + ix + ':30" onclick="setStart(\'' + ix + ':30\')">' + ix + '<sup>:30</sup></button>';
             $("#show_btnTime").append(html2);
             sequence++;
-
         }
+
+        document.querySelector('button[value=\'' + h + ':00\']').focus();
     }
 
     function setStart(value) {
@@ -243,13 +245,17 @@
         if (endTime != "") {
             return false;
         }
-
+        if (value == '23:30' && startTime == '') {
+            return false;
+        }
+        
         var btnChoose = document.querySelector("button[value='" + value + "']");
         btnChoose.classList.add('btn-info');
         btnChoose.classList.remove('btn-success');
         btnChoose.setAttribute("disabled", "");
 
         if (startTime == '') {
+
             startTime = value;
             document.getElementById('label_start').textContent = 'Start :';
             document.getElementById('start_from').textContent = value;
