@@ -39,6 +39,7 @@
             /* height:100%; */
             /* width:100%; */
             padding-left: 15px;
+            padding-top: 20px;
             padding-right: 28px;
         }
     </style>
@@ -48,36 +49,36 @@
     <div id="full-size">
         <div class="row">
             <div class="col-md-6 offset-md-0" style="height: 150px;" id="room_name">
-                <h1 id="titleRoom" style="padding-top: 35px;padding-right: 0px;color: white;font-family: 'Alfa Slab One', cursive;">
-                        Room 
-                    </h1>
+                <h1 id="titleRoom" style="padding-top: 35px;padding-left: 18px;color: white;font-family: 'Alfa Slab One', cursive;"></h1>
             </div>
             <div class="col-md-6" id="time" align="right">
-                <h1 onclick="refresh()" style="padding-top: 35px;color: white;font-family: 'Alfa Slab One', cursive;" id="showing_time"></h1>
-                <h4 style="color: white;font-family: 'Alfa Slab One', cursive;" id="showing_date"></h4>
+                <h1 onclick="refresh()" style="padding-top: 35px; padding-right:18px; color: white;font-family: 'Alfa Slab One', cursive;" id="showing_time"></h1>
+                <h4 style="color: white;font-family: 'Alfa Slab One', cursive; padding-right:18px;" id="showing_date"></h4>
             </div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-3 offset-md-0" style="height: 100px;" id="room_name">
                 <small style="font-size: 23px;color: yellow;font-family: 'Alfa Slab One', cursive;">Room Status</small>
             </div>
-            <div class="col-md-4 offset-md-0" id="scheduling">
+            <div class="col-md-3 offset-md-0 text-center">
                 <div id="time_value">
                     <h2 id="label_start" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 22px"></h2>
                     <h1 id="start_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 40px"></h1>
                 </div>
             </div>
-            <div class="col-md-4 offset-md-0" id="scheduling">
+            <div class="col-md-3 offset-md-0 text-center">
                 <div id="time_value">
                     <h2 id="label_end" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 22px"></h2>
                     <h1 id="end_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 40px"></h1>
                 </div>
             </div>
-            <div class="col-md-1 offset-md-0" id="btn_action" hidden>
+            <div class="col-md-3 offset-md-0 text-center" id="btn_action" hidden>
                 <button type="button" class="btn btn-dark" id="submit_sch" data-toggle="tooltip" data-placement="right" title="Save" onclick="saveData();"><i class="fa fa-save"></i></button>
                 <button type="button" class="btn btn-dark" id="reset_sch" data-toggle="tooltip" data-placement="right" title="Reset" onclick="reset();"><i class="fa fa-refresh"></i></button>
             </div>
         </div>
+        <br>
         <div class="row">
             <div class="col-md-12 show_btnTime" style="overflow-x: scroll; white-space: nowrap;" id="show_btnTime"></div>
         </div>
@@ -135,7 +136,7 @@
                         </div>
                         <div class="md-form mb-5">
                             <label for="baseUrl">Base Url</label>
-                            <input type="text" placeholder="http://localhost/meeting" id="baseUrl" autocomplete="off" name="baseUrl" class="form-control" required>
+                            <input type="text" placeholder="http://192.168.1.1/meeting" id="baseUrl" autocomplete="off" name="baseUrl" class="form-control" required>
                         </div>
 
                     </div>
@@ -170,16 +171,6 @@
         }
         return false;
     }
-
-    // function getRoom() {
-    //     $.ajax({
-    //         type: "GET",
-    //         url: "url",
-    //         data: "data",
-    //         dataType: "json",
-    //         success: function(response) {}
-    //     });
-    // }
 
     function bootTime() {
         var today = new Date();
