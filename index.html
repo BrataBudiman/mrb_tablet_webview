@@ -3,13 +3,15 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" /> -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <title>Welcome</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/styles.min.css" />
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
     <script src="assets/jquery.min.js"></script>
     <script src="assets/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
 
     <style>
         /* Hide scrollbar for Chrome, Safari and Opera */
@@ -22,125 +24,162 @@
         .show_btnTime {
             -ms-overflow-style: none;
         }
-
-        html, body {
+        
+        html,
+        body {
+            margin: 0;
+            padding: 0;
             height: 100%;
+            width: 100%;
+            overflow: hidden;
+            /* or overflow:auto; if you want scrollbars */
+        }
+        
+        #full-size {
+            /* height:100%; */
+            /* width:100%; */
+            padding-left: 15px;
+            padding-right: 28px;
         }
     </style>
 </head>
 
 <body>
-    <div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-0" style="height: 250px;" id="room_name">
-                    <h1 style="padding-top: 35px;padding-right: 0px;color: white;font-family: 'Alfa Slab One', cursive;">Room Name
-                        </h1>
-                </div>
-                <div class="col-md-6" id="time" align="right">
-                    <h1 style="padding-top: 35px;color: white;font-family: 'Alfa Slab One', cursive;" id="showing_time"></h1>
-                    <h4 style="padding-top: 35px;color: white;font-family: 'Alfa Slab One', cursive;" id="showing_date"></h4>
-                </div>
+    <div id="full-size">
+        <div class="row">
+            <div class="col-md-6 offset-md-0" style="height: 150px;" id="room_name">
+                <h1 id="titleRoom" style="padding-top: 35px;padding-right: 0px;color: white;font-family: 'Alfa Slab One', cursive;">
+                        Room 
+                    </h1>
             </div>
-            <div class="row">
-                <div class="col-md-3 offset-md-0" style="height: 100px;" id="room_name">
-                    <small style="font-size: 23px;color: yellow;font-family: 'Alfa Slab One', cursive;">Room Status</small>
-                </div>
-                <div class="col-md-4 offset-md-0" id="scheduling">
-                    <div id="time_value">
-                        <h2 id="label_start" style="color: white;"></h2>
-                        <h1 id="start_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 80px"></h1>
-                    </div>
-                </div>
-                <div class="col-md-4 offset-md-0" id="scheduling">
-                    <div id="time_value">
-                        <h2 id="label_end" style="color: white;"></h2>
-                        <h1 id="end_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 80px"></h1>
-                    </div>
-                </div>
-                <div class="col-md-1 offset-md-0" id="btn_action" hidden>
-                    <button type="button" class="btn btn-dark" id="submit_sch" data-toggle="tooltip" data-placement="right" title="Save"  onclick="saveData();"><i class="fa fa-save"></i></button>
-                    <button type="button" class="btn btn-dark" id="reset_sch" data-toggle="tooltip" data-placement="right" title="Reset" onclick="reset();"><i class="fa fa-refresh"></i></button>
-                </div>
+            <div class="col-md-6" id="time" align="right">
+                <h1 onclick="refresh()" style="padding-top: 35px;color: white;font-family: 'Alfa Slab One', cursive;" id="showing_time"></h1>
+                <h4 style="color: white;font-family: 'Alfa Slab One', cursive;" id="showing_date"></h4>
             </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-3 offset-md-0" style="height: 100px;" id="room_name">
+                <small style="font-size: 23px;color: yellow;font-family: 'Alfa Slab One', cursive;">Room Status</small>
+            </div>
+            <div class="col-md-4 offset-md-0" id="scheduling">
+                <div id="time_value">
+                    <h2 id="label_start" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 22px"></h2>
+                    <h1 id="start_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 40px"></h1>
+                </div>
+            </div>
+            <div class="col-md-4 offset-md-0" id="scheduling">
+                <div id="time_value">
+                    <h2 id="label_end" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 22px"></h2>
+                    <h1 id="end_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 40px"></h1>
+                </div>
+            </div>
+            <div class="col-md-1 offset-md-0" id="btn_action" hidden>
+                <button type="button" class="btn btn-dark" id="submit_sch" data-toggle="tooltip" data-placement="right" title="Save" onclick="saveData();"><i class="fa fa-save"></i></button>
+                <button type="button" class="btn btn-dark" id="reset_sch" data-toggle="tooltip" data-placement="right" title="Reset" onclick="reset();"><i class="fa fa-refresh"></i></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 show_btnTime" style="overflow-x: scroll; white-space: nowrap;" id="show_btnTime"></div>
+        </div>
 
-    <div class="row">
-        <div class="col-md-12 show_btnTime" style="overflow-x: scroll;white-space: nowrap;" id="show_btnTime"></div>
     </div>
 
     <!--Modal Login Form-->
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="background-color: cornflowerblue;">
                 <div class="modal-header text-center">
                     <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form>
-                    
+                <form method="POST" id="formlogin">
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <label for="employee_id">Employee ID</label>
+                            <input type="text" id="employee_id" autocomplete="off" name="employee_id" class="form-control" required>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <label for="defaultForm-pass">Password</label>
+                            <input type="password" name="password" id="defaultForm-pass" class="form-control" required>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" data-dismiss="modal" class="btn btn-warning">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
                 </form>
-                <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                        <label data-error="wrong" data-success="right" for="employee_id">Your Employee ID</label>
-                        <input type="text" id="employee_id" autocomplete="off" name="employee_id" class="form-control">
-                    </div>
+            </div>
+        </div>
+    </div>
 
-                    <div class="md-form mb-4">
-                        <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
-                        <input type="password" id="defaultForm-pass" class="form-control">
-                    </div>
+    <!--Modal Login Form-->
+    <div class="modal fade" id="modalSetting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color: cornflowerblue;">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Setting</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="POST" id="formSetting">
+                    <input type="hidden" name="random" value="" id="codeRandom">
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <label for="code">Tablet Code</label>
+                            <input type="text" id="code" autocomplete="off" name="code" class="form-control" required>
+                        </div>
+                        <div class="md-form mb-5">
+                            <label for="baseUrl">Base Url</label>
+                            <input type="text" placeholder="http://localhost/meeting" id="baseUrl" autocomplete="off" name="baseUrl" class="form-control" required>
+                        </div>
 
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-lg btn-warning">Cancel</button>
-                    <button type="submit" class="btn btn-lg btn-primary">Login</button>
-                </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success">Set</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
 </body>
 <script type="text/javascript">
-
     var startTime = "";
     var endTime = "";
-    localStorage.setItem("baseUrl", "http://localhost/meetingrb");
+    var wantRefresh = 0;
 
-    function getRoom() {
-        $.ajax({
-            type: "GET",
-            url: "url",
-            data: "data",
-            dataType: "json",
-            success: function(response) {}
-        });
+    document.querySelector('#baseUrl').value = localStorage.getItem('baseUrl');
+    document.querySelector('#code').value = localStorage.getItem('codeTablet');
+    document.getElementById('titleRoom').textContent = localStorage.getItem('nameTablet');
+
+    if (localStorage.getItem("baseUrl") == null) {
+        localStorage.setItem("baseUrl", "http://192.168.100.19/meetingrb");
     }
 
-    function login(value) {
+    function refresh() {
+        wantRefresh += 1;
 
-        // JSON.stringify(data);
-
-        // const data = new FormData();
-        // data.append('username', 'admin');
-        // data.append('password', 'admin');
-
-        const options = {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/form-data'
-            }
+        if (wantRefresh == 5) {
+            document.getElementById('titleRoom').textContent = 'Refreshing...';
+            location.reload();
         }
-        var baseUrl = localStorage.getItem("baseUrl");
-
-        fetch(baseUrl + '/api/users/check_login', options)
-            .then(res => res.json())
-            .then(res => console.log(res));
+        return false;
     }
+
+    // function getRoom() {
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "url",
+    //         data: "data",
+    //         dataType: "json",
+    //         success: function(response) {}
+    //     });
+    // }
 
     function bootTime() {
         var today = new Date();
@@ -196,12 +235,12 @@
         for (var i = 0; i < 25; i++) {
             var ix = checkTime(i);
             var html1 =
-                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="'+ sequence +'" name="btn_' + ix + ':00" value="' + ix + ':00" onclick="setStart(\'' + ix + ':00\')">' + ix + '<sup>:00</sup></button>';
+                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="' + sequence + '" name="btn_' + ix + ':00" value="' + ix + ':00" onclick="setStart(\'' + ix + ':00\')">' + ix + '<sup>:00</sup></button>';
             $("#show_btnTime").append(html1);
             sequence++;
 
             var html2 =
-                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="'+ sequence +'" name="btn_' + ix + ':30" value="' + ix + ':30" onclick="setStart(\'' + ix + ':30\')">' + ix + '<sup>:30</sup></button>';
+                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="' + sequence + '" name="btn_' + ix + ':30" value="' + ix + ':30" onclick="setStart(\'' + ix + ':30\')">' + ix + '<sup>:30</sup></button>';
             $("#show_btnTime").append(html2);
             sequence++;
 
@@ -221,13 +260,13 @@
 
         if (startTime == '') {
             startTime = value;
-            document.getElementById('label_start').textContent = 'Start';
+            document.getElementById('label_start').textContent = 'Start :';
             document.getElementById('start_from').textContent = value;
 
             btnBefore(value, btnChoose.id);
         } else {
             endTime = value;
-            document.getElementById('label_end').textContent = 'End';
+            document.getElementById('label_end').textContent = 'End :';
             document.getElementById('end_from').textContent = value;
             document.getElementById('btn_action').removeAttribute('hidden');
 
@@ -236,45 +275,72 @@
     }
 
     function btnBefore(value, btn) {
-        
+
         var time = value;
         var MS_PER_MINUTE = 60000;
-        
+
         for (let i = 0; i < parseInt(btn); i++) {
-            let tm    = time.split(":");
-            let hours   = parseInt(tm[0]);
+            let tm = time.split(":");
+            let hours = parseInt(tm[0]);
             let minutes = parseInt(tm[1]);
-            let today   = new Date();
-            let month   = today.getMonth();
-            let day     = today.getDate();
-            let year    = today.getFullYear();
-            let choose  = new Date(year, month, day, hours, minutes);
+            let today = new Date();
+            let month = today.getMonth();
+            let day = today.getDate();
+            let year = today.getFullYear();
+            let choose = new Date(year, month, day, hours, minutes);
 
             let myStartDate = new Date(choose - 30 * MS_PER_MINUTE);
             time = String(myStartDate.getHours()).padStart(2, "0") + ':' + String(myStartDate.getMinutes()).padStart(2, "0");
-            
+
             // change button color to yellow 
-            let btnBefore = document.querySelector("button[value='"+time+"']");
+            let btnBefore = document.querySelector("button[value='" + time + "']");
             btnBefore.classList.add('btn-warning');
             btnBefore.classList.remove('btn-success');
             btnBefore.setAttribute("disabled", "");
         }
     }
 
-    function saveData() {
-        // reset();
-        if (localStorage.getItem('_employeeId') === null || !localStorage.getItem('_employeeId')) {
+    function saveData(token) {
+        
+        if (token === null || !token) {
             $('#modalLoginForm').modal({
                 backdrop: 'static',
                 keyboard: false
-            }); 
+            });
+            $('#formlogin').trigger('reset');
+            return false;
         }
+
+        let formData = new URLSearchParams();
+        formData.append('start', startTime);
+        formData.append('end', endTime);
+        formData.append('roomCode', localStorage.getItem('roomCode'));
+
+        const options = {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'X-API-KEY': token,
+            }
+        }
+        var baseUrl = localStorage.getItem("baseUrl");
+
+        fetch(baseUrl + '/api/reservation/store', options)
+            .then(res => res.json())
+            .then((res) => {
+                if (res.error) {
+                    bootbox.alert(res.message);
+                } else {
+                    bootbox.alert(res.message);
+                }
+            });
     }
 
     function reset() {
-        
+
         $('#show_btnTime :button').addClass('btn-success').removeClass('btn-warning btn-info').removeAttr('disabled');
-        
+
         endTime = "";
         startTime = "";
 
@@ -289,6 +355,76 @@
     $(document).ready(function() {
         bootTime();
         btnTime();
+
+        $('#formlogin').submit(function(e) {
+            e.preventDefault();
+
+            const options = {
+                method: 'POST',
+                body: $(this).serialize(),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                }
+            }
+            var baseUrl = localStorage.getItem("baseUrl");
+
+            fetch(baseUrl + '/api/employees/check_login', options)
+                .then(res => res.json())
+                .then((res) => {
+                    if (res.error) {
+                        bootbox.alert(res.message);
+                    } else {
+
+                        if (res.admin) {
+                            $('#modalLoginForm').modal('hide');
+                            $('#modalSetting').modal({
+                                backdrop: 'static',
+                                keyboard: false
+                            });
+                            document.querySelector('#codeRandom').value = res.data.token;
+                            return;
+                        }
+
+                        saveData(res.data.token);
+                    }
+                });
+        });
+
+        $('#formSetting').submit(function(e) {
+            e.preventDefault();
+
+            let formData = new URLSearchParams();
+            formData.append('code', document.querySelector('#code').value);
+
+            const options = {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'X-API-KEY': document.querySelector('#codeRandom').value,
+                }
+            }
+
+            localStorage.setItem("baseUrl", document.querySelector('#baseUrl').value);
+            var baseUrl = localStorage.getItem("baseUrl");
+
+            fetch(baseUrl + '/api/tablets/setTablet', options)
+                .then(res => res.json())
+                .then((res) => {
+                    if (res.error) {
+                        bootbox.alert(res.message);
+                    } else {
+                        
+                        localStorage.setItem("nameTablet", res.data.name);
+                        localStorage.setItem("roomCode", res.data.room_code);
+                        localStorage.setItem("codeTablet", document.querySelector('#code').value);
+                        
+                        document.getElementById('titleRoom').textContent = localStorage.getItem('nameTablet');
+                        bootbox.alert(res.message);
+                    }
+                });
+        });
+
     });
 </script>
 
