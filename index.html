@@ -5,14 +5,15 @@
     <meta charset="utf-8" />
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" /> -->
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <title>Welcome</title>
+    <title>Meeting Room Booking</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="assets/css/styles.min.css" />
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/alertifyjs/css/alertify.min.css"/>
     <script src="assets/jquery.min.js"></script>
     <script src="assets/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
-
+    <script src="assets/alertifyjs/alertify.min.js"></script>
     <style>
         /* Hide scrollbar for Chrome, Safari and Opera */
         
@@ -34,6 +35,10 @@
             overflow: hidden;
             /* or overflow:auto; if you want scrollbars */
         }
+
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
         
         #full-size {
             /* height:100%; */
@@ -49,28 +54,28 @@
     <div id="full-size">
         <div class="row">
             <div class="col-md-6 offset-md-0" style="height: 150px;" id="room_name">
-                <h1 id="titleRoom" style="padding-top: 35px;padding-left: 18px;color: white;font-family: 'Alfa Slab One', cursive;"></h1>
+                <h1 id="titleRoom" style="padding-top: 35px;padding-left: 18px;color: white;"></h1>
             </div>
             <div class="col-md-6" id="time" align="right">
-                <h1 onclick="refresh()" style="padding-top: 35px; padding-right:18px; color: white;font-family: 'Alfa Slab One', cursive;" id="showing_time"></h1>
-                <h4 style="color: white;font-family: 'Alfa Slab One', cursive; padding-right:18px;" id="showing_date"></h4>
+                <h1 onclick="refresh()" style="padding-top: 35px; padding-right:18px; color: white;" id="showing_time"></h1>
+                <h4 style="color: white; padding-right:18px;" id="showing_date"></h4>
             </div>
         </div>
         <br>
         <div class="row">
             <div class="col-md-3 offset-md-0" style="height: 100px;" id="room_name">
-                <small style="font-size: 23px;color: yellow;font-family: 'Alfa Slab One', cursive;">Room Status</small>
+                <small style="font-size: 23px;color: yellow;">Room Status</small>
             </div>
             <div class="col-md-3 offset-md-0 text-center">
                 <div id="time_value">
-                    <h2 id="label_start" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 22px"></h2>
-                    <h1 id="start_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 40px"></h1>
+                    <h2 id="label_start" style="color: white; font-size: 22px"></h2>
+                    <h1 id="start_from" style="color: white; font-size: 40px"></h1>
                 </div>
             </div>
             <div class="col-md-3 offset-md-0 text-center">
                 <div id="time_value">
-                    <h2 id="label_end" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 22px"></h2>
-                    <h1 id="end_from" style="color: white;font-family: 'Alfa Slab One', cursive;font-size: 40px"></h1>
+                    <h2 id="label_end" style="color: white; font-size: 22px"></h2>
+                    <h1 id="end_from" style="color: white; font-size: 40px"></h1>
                 </div>
             </div>
             <div class="col-md-3 offset-md-0 text-center" id="btn_action" hidden>
@@ -80,7 +85,7 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-12 show_btnTime" style="overflow-x: scroll; white-space: nowrap;" id="show_btnTime"></div>
+            <div  class="col-md-12 show_btnTime btn-group" style="overflow-x: scroll; white-space: nowrap;" id="show_btnTime"></div>
         </div>
 
     </div>
@@ -88,7 +93,7 @@
     <!--Modal Login Form-->
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content" style="background-color: cornflowerblue;">
+            <div class="modal-content" style="background-color: rgb(185, 194, 202);">
                 <div class="modal-header text-center">
                     <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -120,7 +125,7 @@
     <!--Modal Login Form-->
     <div class="modal fade" id="modalSetting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content" style="background-color: cornflowerblue;">
+            <div class="modal-content" style="background-color: rgb(185, 194, 202);">
                 <div class="modal-header text-center">
                     <h4 class="modal-title w-100 font-weight-bold">Setting</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -153,6 +158,8 @@
     var startTime = "";
     var endTime = "";
     var wantRefresh = 0;
+    var MS_PER_MINUTE = 60000;
+    alertify.set('notifier','position', 'top-right');
 
     document.querySelector('#baseUrl').value = localStorage.getItem('baseUrl');
     document.querySelector('#code').value = localStorage.getItem('codeTablet');
@@ -164,8 +171,7 @@
 
     function refresh() {
         wantRefresh += 1;
-
-        if (wantRefresh == 5) {
+        if (wantRefresh == 2) {
             document.getElementById('titleRoom').textContent = 'Refreshing...';
             location.reload();
         }
@@ -227,20 +233,31 @@
         for (var i = 0; i < 24; i++) {
             var ix = checkTime(i);
             var html1 =
-                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="' + sequence + '" name="btn_' + ix + ':00" value="' + ix + ':00" onclick="setStart(\'' + ix + ':00\')">' + ix + '<sup>:00</sup></button>';
+                '<button type="button" class="btn btn-primary btn-success" type="button" style="margin-top: 100px; width: 60px;height: 60px;font-size: 15px;" id="' + sequence + '" name="btn_' + ix + ':00" value="' + ix + ':00" onclick="setStart(\'' + ix + ':00\')">' + ix + ':00</button>';
             $("#show_btnTime").append(html1);
             sequence++;
 
             var html2 =
-                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 50px; width: 100px;height: 100px;font-size: 30px;" id="' + sequence + '" name="btn_' + ix + ':30" value="' + ix + ':30" onclick="setStart(\'' + ix + ':30\')">' + ix + '<sup>:30</sup></button>';
+                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 100px; width: 60px;height: 60px;font-size: 15px;" id="' + sequence + '" name="btn_' + ix + ':15" value="' + ix + ':15" onclick="setStart(\'' + ix + ':15\')">' + ix + ':15</button>';
             $("#show_btnTime").append(html2);
+            sequence++;
+
+            var html3 =
+                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 100px; width: 60px;height: 60px;font-size: 15px;" id="' + sequence + '" name="btn_' + ix + ':30" value="' + ix + ':30" onclick="setStart(\'' + ix + ':30\')">' + ix + ':30</button>';
+            $("#show_btnTime").append(html3);
+            sequence++;
+
+            var html3 =
+                '<button type="button" class="btn btn-primary btn btn-success" type="button" style="margin-top: 100px; width: 60px;height: 60px;font-size: 15px;" id="' + sequence + '" name="btn_' + ix + ':45" value="' + ix + ':45" onclick="setStart(\'' + ix + ':45\')">' + ix + ':45</button>';
+            $("#show_btnTime").append(html3);
             sequence++;
         }
 
         document.querySelector('button[value=\'' + h + ':00\']').focus();
+        document.querySelector('button[value=\'' + h + ':00\']').blur();
     }
 
-    function setStart(value) {
+    function setStart__(value) {
 
         if (endTime != "") {
             return false;
@@ -271,31 +288,84 @@
         }
     }
 
-    function btnBefore(value, btn) {
+    function setStart(value) {
+
+        if (value == '23:30' && startTime == '') {
+            return false;
+        }
+
+        var btnChoose = document.querySelector("button[value='" + value + "']");
+
+        if (startTime !== "") {
+            if (btnChoose.id < document.querySelector("button[value='" + startTime + "']").id) {
+                return false;
+            }
+        }
+        
+        if (startTime == '') {
+
+            // btnChoose.setAttribute("disabled", "");
+
+            startTime = value;
+            document.getElementById('label_start').textContent = 'Start :';
+            document.getElementById('start_from').textContent = value;
+
+            btnAfter(value);
+            // btnBefore(value, btnChoose.id);
+
+        } else {
+
+            $('#show_btnTime :button').not("button[value='" + startTime + "']").addClass('btn-success').removeClass('btn-info').removeAttr('disabled');
+            btnAfter(value);
+        }
+
+        btnChoose.classList.add('btn-info');
+        btnChoose.classList.remove('btn-success');
+    }
+
+    function btnAfter(value) {
 
         var time = value;
-        var MS_PER_MINUTE = 60000;
+        let tm = time.split(":");
+        let hours = parseInt(tm[0]);
+        let minutes = parseInt(tm[1]);
+        let today = new Date();
+        let month = today.getMonth();
+        let day = today.getDate();
+        let year = today.getFullYear();
+        let choose = new Date(year, month, day, hours, minutes);
+        let myStartDate = new Date(choose.getTime() + 15 * MS_PER_MINUTE);
 
-        for (let i = 0; i < parseInt(btn); i++) {
-            let tm = time.split(":");
-            let hours = parseInt(tm[0]);
-            let minutes = parseInt(tm[1]);
-            let today = new Date();
-            let month = today.getMonth();
-            let day = today.getDate();
-            let year = today.getFullYear();
-            let choose = new Date(year, month, day, hours, minutes);
-
-            let myStartDate = new Date(choose - 30 * MS_PER_MINUTE);
-            time = String(myStartDate.getHours()).padStart(2, "0") + ':' + String(myStartDate.getMinutes()).padStart(2, "0");
-
-            // change button color to yellow 
-            let btnBefore = document.querySelector("button[value='" + time + "']");
-            btnBefore.classList.add('btn-warning');
-            btnBefore.classList.remove('btn-success');
-            btnBefore.setAttribute("disabled", "");
-        }
+        endTime = String(myStartDate.getHours()).padStart(2, "0") + ':' + String(myStartDate.getMinutes()).padStart(2, "0");
+        document.getElementById('label_end').textContent = 'End :';
+        document.getElementById('end_from').textContent = endTime;
+        document.getElementById('btn_action').removeAttribute('hidden');
     }
+
+    // function btnBefore(value, btn) {
+
+    //     var time = value;
+
+    //     for (let i = 0; i < parseInt(btn); i++) {
+    //         let tm = time.split(":");
+    //         let hours = parseInt(tm[0]);
+    //         let minutes = parseInt(tm[1]);
+    //         let today = new Date();
+    //         let month = today.getMonth();
+    //         let day = today.getDate();
+    //         let year = today.getFullYear();
+    //         let choose = new Date(year, month, day, hours, minutes);
+
+    //         let myStartDate = new Date(choose - 15 * MS_PER_MINUTE);
+    //         time = String(myStartDate.getHours()).padStart(2, "0") + ':' + String(myStartDate.getMinutes()).padStart(2, "0");
+
+    //         // change button color to yellow 
+    //         let btnBefore = document.querySelector("button[value='" + time + "']");
+    //         // btnBefore.classList.add('btn-warning');
+    //         // btnBefore.classList.remove('btn-success');
+    //         // btnBefore.setAttribute("disabled", "");
+    //     }
+    // }
 
     function saveData(token) {
         
@@ -327,9 +397,9 @@
             .then(res => res.json())
             .then((res) => {
                 if (res.error) {
-                    bootbox.alert(res.message);
+                    alertify.error(res.message); 
                 } else {
-                    bootbox.alert(res.message);
+                    alertify.success(res.message);
                 }
             });
     }
@@ -369,7 +439,7 @@
                 .then(res => res.json())
                 .then((res) => {
                     if (res.error) {
-                        bootbox.alert(res.message);
+                        alertify.error(res.message); 
                     } else {
 
                         if (res.admin) {
@@ -409,7 +479,7 @@
                 .then(res => res.json())
                 .then((res) => {
                     if (res.error) {
-                        bootbox.alert(res.message);
+                        alertify.error(res.message); 
                     } else {
                         
                         localStorage.setItem("nameTablet", res.data.name);
@@ -417,7 +487,7 @@
                         localStorage.setItem("codeTablet", document.querySelector('#code').value);
                         
                         document.getElementById('titleRoom').textContent = localStorage.getItem('nameTablet');
-                        bootbox.alert(res.message);
+                        alertify.success(res.message); 
                     }
                 });
         });
