@@ -131,8 +131,8 @@
         }
 
         .modal-body {
-            max-height: calc(100vh - 210px);
-            overflow-y: auto;
+            max-height: 110px;
+            overflow-y: scroll;
         }
         
     </style>
@@ -141,8 +141,8 @@
 <body class="bodyFine">
     <div id="full-size">
         <div class="row">
-            <div class="col-md-6 offset-md-0" style="height: 150px;" id="room_name">
-                <h1 id="titleRoom" style="padding-top: 35px;padding-left: 18px;color: white;"></h1>
+            <div class="col-md-6 offset-md-0" style="height: 130px;" id="room_name">
+                <h1 id="titleRoom" style="padding-top: 5px;padding-left: 18px;color: white;"></h1>
                 <!-- <h6 id="fetchData" style="padding-left: 18px;color: white;"> Please wait, Fetching data...</h6> -->
                 <div id="fetchData" class="lds-ellipsis">
                     <div></div>
@@ -152,7 +152,7 @@
                 </div>
             </div>
             <div class="col-md-6" id="time" align="right">
-                <h1 onclick="refresh()" style="padding-top: 35px; padding-right:18px; color: white;" id="showing_time"></h1>
+                <h1 onclick="refresh()" style="padding-top: 5px; padding-right:18px; color: white;" id="showing_time"></h1>
                 <h4 style="color: white; padding-right:18px;" id="showing_date"></h4>
             </div>
         </div>
@@ -185,7 +185,7 @@
                 <button type="button" class="btn btn-dark" id="reset_sch" data-toggle="tooltip" data-placement="right" title="Reset" onclick="reset();"><i class="fa fa-refresh"></i></button>
             </div>
         </div>
-        <br>
+        <!-- <br> -->
         <div class="row">
             <div class="col-md-12 show_btnTime btn-group" style="overflow-x: scroll; white-space: nowrap;" id="show_btnTime"></div>
         </div>
