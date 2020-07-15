@@ -406,16 +406,15 @@
     }
 
     function startWebsocket() {
-        conn = new WebSocket('ws://868a5c90.ngrok.io');
+        conn = new WebSocket('ws://c233b864ac6c.ngrok.io');
         conn.onopen = function(e) {
             console.log("Connection established!");
         };
 
         conn.onmessage = function(e) {
-            // console.log(e);
+            console.log(e);
 
             try {
-                console.log(JSON.parse(e.data));
                 var parse = JSON.parse(e.data);
                 // var employee = parse.employee.includes(localStorage.getItem('_employee_id'));
                 var action = parse.action;
@@ -458,8 +457,8 @@
         };
 
         conn.onclose = function(event) {
-
-            console.log("WebSocket is closed now, try to connect again");
+		
+			console.log("WebSocket is closed now, try to connect again");
             startWebsocket();
 
         };
