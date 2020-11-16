@@ -1,225 +1,372 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" /> -->
+        <meta
+            name="viewport"
+            content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"
+        />
+        <title>Meeting Room Booking</title>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="assets/css/styles.min.css" />
+        <link
+            rel="stylesheet"
+            href="assets/font-awesome/css/font-awesome.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="assets/alertifyjs/css/alertify.min.css" />
+        <!-- <link rel="stylesheet" type="text/css" href="assets/loadingbar/loading-bar.min.css"/> -->
+        <script src="assets/jquery.min.js"></script>
+        <script src="assets/bootstrap.bundle.min.js"></script>
+        <script src="assets/alertifyjs/alertify.min.js"></script>
+        <!-- <script type="text/javascript" src="assets/loadingbar/loading-bar.min.js"></script> -->
+        <style>
+            /* Hide scrollbar for Chrome, Safari and Opera */
 
-<head>
-    <meta charset="utf-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" /> -->
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <title>Meeting Room Booking</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/styles.min.css" />
-    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/alertifyjs/css/alertify.min.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="assets/loadingbar/loading-bar.min.css"/> -->
-    <script src="assets/jquery.min.js"></script>
-    <script src="assets/bootstrap.bundle.min.js"></script>
-    <script src="assets/alertifyjs/alertify.min.js"></script>
-    <!-- <script type="text/javascript" src="assets/loadingbar/loading-bar.min.js"></script> -->
-    <style>
-        /* Hide scrollbar for Chrome, Safari and Opera */
-        
-        .show_btnTime::-webkit-scrollbar {
-            display: none;
-        }
-        /* Hide scrollbar for IE and Edge */
-        
-        .show_btnTime {
-            -ms-overflow-style: none;
-        }
-        
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-        }
-        
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        #full-size {
-            padding-left: 15px;
-            padding-top: 20px;
-            padding-right: 28px;
-        }
-        
-        .bodyDanger {
-            background: #FF416C;
-            background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-            background: linear-gradient(to right, #FF4B2B, #FF416C);
-        }
-        
-        .bodyFine {
-            background: #232526;
-            background: -webkit-linear-gradient(to bottom, #414345, #232526);
-            background: linear-gradient(to bottom, #414345, #232526);
-        }
-        
-        .bodyGo {
-            background: #FDC830;
-            background: -webkit-linear-gradient(to bottom, #F37335, #FDC830);
-            background: linear-gradient(to bottom, #F37335, #FDC830);
-        }
-        
-        .lds-ellipsis {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 80px;
-        }
-        
-        .lds-ellipsis div {
-            position: absolute;
-            top: 0px;
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: #fff;
-            /* padding-left: 18px; */
-            animation-timing-function: cubic-bezier(0, 1, 1, 0);
-        }
-        
-        .lds-ellipsis div:nth-child(1) {
-            left: 8px;
-            animation: lds-ellipsis1 0.6s infinite;
-        }
-        
-        .lds-ellipsis div:nth-child(2) {
-            left: 8px;
-            animation: lds-ellipsis2 0.6s infinite;
-        }
-        
-        .lds-ellipsis div:nth-child(3) {
-            left: 32px;
-            animation: lds-ellipsis2 0.6s infinite;
-        }
-        
-        .lds-ellipsis div:nth-child(4) {
-            left: 56px;
-            animation: lds-ellipsis3 0.6s infinite;
-        }
-        
-        @keyframes lds-ellipsis1 {
-            0% {
-                transform: scale(0);
+            .show_btnTime::-webkit-scrollbar {
+                display: none;
             }
-            100% {
-                transform: scale(1);
-            }
-        }
-        
-        @keyframes lds-ellipsis3 {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(0);
-            }
-        }
-        
-        @keyframes lds-ellipsis2 {
-            0% {
-                transform: translate(0, 0);
-            }
-            100% {
-                transform: translate(24px, 0);
-            }
-        }
 
-        .modal-body {
-            max-height: 110px;
-            overflow-y: scroll;
-        }
-        
-    </style>
-</head>
+            /* Hide scrollbar for IE and Edge */
 
-<body class="bodyFine">
-    <div id="full-size">
-        <div class="row">
-            <div class="col-md-6 offset-md-0" style="height: 130px;" id="room_name">
-                <h1 id="titleRoom" style="padding-top: 5px;padding-left: 18px;color: white;"></h1>
-                <!-- <h6 id="fetchData" style="padding-left: 18px;color: white;"> Please wait, Fetching data...</h6> -->
-                <div id="fetchData" class="lds-ellipsis">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-            <div class="col-md-6" id="time" align="right">
-                <h1 onclick="refresh()" style="padding-top: 5px; padding-right:18px; color: white;" id="showing_time"></h1>
-                <h4 style="color: white; padding-right:18px;" id="showing_date"></h4>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-3 offset-md-0" style="height: 100px;" id="room_name">
-                <!-- <small style="font-size: 20px;color: white;">Room Status</small> -->
-                <h6 id="statusRoom" style="color: white;"></h6>
-                <h6 id="infoRoom" style="color: white;"></h6>
-                <button id="btnPlay" class="btn btn-dark" onclick="startMeeting()"> Find Meeting</button>
-                <button id="btnExtend" class="btn btn-dark" onclick="extendMeeting()" style="display: none;"></button>
-            </div>
-            <div class="col-md-3 offset-md-0 text-center">
-                <div id="time_value">
-                    <h2 id="label_start" style="color: white; font-size: 22px"></h2>
-                    <h1 id="start_from" style="color: white; font-size: 40px"></h1>
-                </div>
-            </div>
-            <div class="col-md-3 offset-md-0 text-center">
-                <div id="time_value">
-                    <h2 id="label_end" style="color: white; font-size: 22px"></h2>
-                    <h1 id="end_from" style="color: white; font-size: 40px"></h1>
-                </div>
-            </div>
-            <div class="col-md-3 offset-md-0 text-center" id="btn_action" hidden>
-                <button type="button" class="btn btn-dark" id="submit_sch" data-toggle="tooltip" data-placement="right" title="Save" onclick="saveData();"><i class="fa fa-save"></i></button>
-                &nbsp;
-                &nbsp;
-                &nbsp;
-                <button type="button" class="btn btn-dark" id="reset_sch" data-toggle="tooltip" data-placement="right" title="Reset" onclick="reset();"><i class="fa fa-refresh"></i></button>
-            </div>
-        </div>
-        <!-- <br> -->
-        <div class="row">
-            <div class="col-md-12 show_btnTime btn-group" style="overflow-x: scroll; white-space: nowrap;" id="show_btnTime"></div>
-        </div>
+            .show_btnTime {
+                -ms-overflow-style: none;
+            }
 
-    </div>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+            }
 
-    <!--Modal Login Form for Reserve-->
-    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: rgb(185, 194, 202);">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+            * {
+                font-family: "Poppins", sans-serif;
+            }
+
+            #full-size {
+                padding-left: 15px;
+                padding-top: 20px;
+                padding-right: 28px;
+            }
+
+            .bodyDanger {
+				background: #373B44;  /* fallback for old browsers */
+				background: -webkit-linear-gradient(to right, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+				background: linear-gradient(to right, #4286f4, #373B44); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            }
+
+            .bodyFine {
+                background: #232526;
+                background: -webkit-linear-gradient(
+                    to bottom,
+                    #414345,
+                    #232526
+                );
+                background: linear-gradient(to bottom, #414345, #232526);
+            }
+
+            .bodyGo {
+                background: #fdc830;
+                background: -webkit-linear-gradient(
+                    to bottom,
+                    #f37335,
+                    #fdc830
+                );
+                background: linear-gradient(to bottom, #f37335, #fdc830);
+            }
+
+            .lds-ellipsis {
+                display: inline-block;
+                position: absolute;
+                width: 75px;
+                height: 75px;
+            }
+
+            .lds-ellipsis div {
+                position: absolute;
+                top: 0px;
+                width: 13px;
+                height: 13px;
+                border-radius: 50%;
+                background: #fff;
+                /* padding-left: 18px; */
+                animation-timing-function: cubic-bezier(0, 1, 1, 0);
+            }
+
+            .lds-ellipsis div:nth-child(1) {
+                left: 8px;
+                animation: lds-ellipsis1 0.6s infinite;
+            }
+
+            .lds-ellipsis div:nth-child(2) {
+                left: 8px;
+                animation: lds-ellipsis2 0.6s infinite;
+            }
+
+            .lds-ellipsis div:nth-child(3) {
+                left: 32px;
+                animation: lds-ellipsis2 0.6s infinite;
+            }
+
+            .lds-ellipsis div:nth-child(4) {
+                left: 56px;
+                animation: lds-ellipsis3 0.6s infinite;
+            }
+
+            @keyframes lds-ellipsis1 {
+                0% {
+                    transform: scale(0);
+                }
+
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes lds-ellipsis3 {
+                0% {
+                    transform: scale(1);
+                }
+
+                100% {
+                    transform: scale(0);
+                }
+            }
+
+            @keyframes lds-ellipsis2 {
+                0% {
+                    transform: translate(0, 0);
+                }
+
+                100% {
+                    transform: translate(24px, 0);
+                }
+            }
+
+            .modal-body {
+                max-height: 110px;
+                overflow-y: scroll;
+            }
+        </style>
+    </head>
+
+    <body class="bodyFine">
+        <div id="full-size">
+            <div class="row">
+                <div
+                    class="col-md-6 offset-md-0"
+                    style="height: 130px;"
+                    id="room_name"
+                    ondblclick="freshing()"
+                >
+                    <!-- <h6 id="fetchData" style="padding-left: 18px;color: white;"> Please wait, Fetching data...</h6> -->
+                    <div id="fetchData" class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <h1
+                        id="titleRoom"
+                        style="
+                            font-size: 28px;
+                            padding-top: 15px;
+                            padding-left: 5px;
+                            color: white;
+                        "
+                    ></h1>
+                    <button
+                        type="button"
+                        class="btn btn-dark btn-sm"
+                        onclick="findMeeting()"
+                    >
+                        Find Meeting
                     </button>
                 </div>
-                <form method="POST" id="formlogin">
-                    <div class="modal-body">
-                        <div class="md-form mb-1">
-                            <label for="meeting_name">Meeting Name</label>
-                            <input type="text" id="meeting_name" autocomplete="off" name="meeting_name" class="form-control" required>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="employee_id">Employee Id</label>
-                                <input type="text" id="employee_id" autocomplete="off" name="employee_id" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" id="defaultForm-pass" class="form-control" required>
-                            </div>
-                        </div>
+                <div class="col-md-6" id="time" align="right">
+                    <h1
+                        onclick="refresh()"
+                        style="
+                            font-size: 28px;
+                            padding-top: 5px;
+                            padding-right: 18px;
+                            color: white;
+                        "
+                        id="showing_time"
+                    ></h1>
+                    <h4
+                        style="
+                            font-size: 15px;
+                            color: white;
+                            padding-right: 18px;
+                        "
+                        id="showing_date"
+                    ></h4>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4 offset-md-0" style="height: 100px;">
+                    <!-- <small style="font-size: 20px;color: white;">Room Status</small> -->
+                    <h6
+                        id="statusRoom"
+                        style="color: white; font-size: 14px;"
+                    ></h6>
+                    <h6
+                        id="infoRoom"
+                        style="color: white; font-size: 14px;"
+                    ></h6>
+                    <button
+                        id="btnPlay"
+                        class="btn btn-dark btn-sm"
+                        onclick="startMeeting()"
+                        style="display: none;"
+                    >
+                        Find Meeting
+                    </button>
+                    <button
+                        id="btnExtend"
+                        class="btn btn-dark btn-sm"
+                        onclick="extendMeeting()"
+                        style="display: none;"
+                    ></button>
+                </div>
+                <div class="col-md-3 offset-md-0 text-center">
+                    <div id="time_value">
+                        <h2
+                            id="label_start"
+                            style="color: white; font-size: 22px;"
+                        ></h2>
+                        <h1
+                            id="start_from"
+                            style="color: white; font-size: 40px;"
+                        ></h1>
+                    </div>
+                </div>
+                <div class="col-md-2 offset-md-0 text-center">
+                    <div id="time_value">
+                        <h2
+                            id="label_end"
+                            style="color: white; font-size: 22px;"
+                        ></h2>
+                        <h1
+                            id="end_from"
+                            style="color: white; font-size: 40px;"
+                        ></h1>
+                    </div>
+                </div>
+                <div
+                    class="col-md-3 offset-md-0 text-center"
+                    id="btn_action"
+                    hidden
+                >
+                    <button
+                        type="button"
+                        class="btn btn-dark"
+                        id="submit_sch"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Save"
+                        onclick="saveData();"
+                    >
+                        <i class="fa fa-save"></i>
+                    </button>
+                    &nbsp; &nbsp; &nbsp;
+                    <button
+                        type="button"
+                        class="btn btn-dark"
+                        id="reset_sch"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        title="Reset"
+                        onclick="reset();"
+                    >
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- <br> -->
+            <div class="row">
+                <div
+                    class="col-md-12 show_btnTime btn-group"
+                    style="overflow-x: scroll; white-space: nowrap;"
+                    id="show_btnTime"
+                ></div>
+            </div>
+        </div>
 
-                        <!-- <div class="md-form mb-1">
+        <!--Modal Login Form for Reserve-->
+        <div
+            class="modal fade"
+            id="modalLoginForm"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div
+                    class="modal-content"
+                    style="background-color: rgb(185, 194, 202);"
+                >
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">
+                            Sign in
+                        </h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" id="formlogin">
+                        <div class="modal-body">
+                            <div class="md-form mb-1">
+                                <label for="meeting_name">Meeting Name</label>
+                                <input
+                                    type="text"
+                                    id="meeting_name"
+                                    autocomplete="off"
+                                    name="meeting_name"
+                                    class="form-control"
+                                    required
+                                />
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="employee_id">Employee Id</label>
+                                    <input
+                                        type="text"
+                                        id="employee_id"
+                                        autocomplete="off"
+                                        name="employee_id"
+                                        class="form-control"
+                                        required
+                                    />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="password">Password</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="defaultForm-pass"
+                                        class="form-control"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- <div class="md-form mb-1">
                             <label for="employee_id">Employee ID</label>
                             <input type="text" id="employee_id" autocomplete="off" name="employee_id" class="form-control" required>
                         </div>
@@ -228,1092 +375,1483 @@
                             <label for="defaultForm-pass">Password</label>
                             <input type="password" name="password" id="defaultForm-pass" class="form-control" required>
                         </div> -->
-
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="button" data-dismiss="modal" class="btn btn-warning">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Login and Save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!--Modal Login Form for Start Meeting-->
-    <div class="modal fade" id="modalLoginMeeting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: rgb(218, 198, 132);">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Start Meeting</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button
+                                type="button"
+                                data-dismiss="modal"
+                                class="btn btn-warning"
+                            >
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Login and Save
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <form method="POST" id="formLoginMeeting">
-                    <div class="modal-body mx-3">
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="employee">Employee Id</label>
-                                <input type="text" id="employee" autocomplete="off" name="employee" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="password">Password</label>
-                                <input type="password" name="pwd" id="pwd" class="form-control" required>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="button" data-dismiss="modal" class="btn btn-warning">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Start Meeting</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
 
-    <!--Modal Login Form-->
-    <div class="modal fade" id="modalSetting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: rgb(185, 194, 202);">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Setting</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <!--Modal Login Form for Start Meeting-->
+        <div
+            class="modal fade"
+            id="modalLoginMeeting"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div
+                    class="modal-content"
+                    style="background-color: rgb(218, 198, 132);"
+                >
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">
+                            Start Meeting
+                        </h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" id="formLoginMeeting">
+                        <div class="modal-body mx-3">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="employee">Employee Id</label>
+                                    <input
+                                        type="text"
+                                        id="employee"
+                                        autocomplete="off"
+                                        name="employee"
+                                        class="form-control"
+                                        required
+                                    />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="password">Password</label>
+                                    <input
+                                        type="password"
+                                        name="pwd"
+                                        id="pwd"
+                                        class="form-control"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button
+                                type="button"
+                                data-dismiss="modal"
+                                class="btn btn-warning"
+                            >
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Start Meeting
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <form method="POST" id="formSetting">
-                    <input type="hidden" name="random" value="" id="codeRandom">
-                    <div class="modal-body mx-3">
-                        <div class="md-form">
-                            <label for="code">Tablet Code</label>
-                            <input type="text" id="code" autocomplete="off" name="code" class="form-control" required>
-                        </div>
-                        <div class="md-form">
-                            <label for="baseUrl">Base Url</label>
-                            <input type="text" placeholder="http://192.168.1.1/meeting" id="baseUrl" autocomplete="off" name="baseUrl" class="form-control" required>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="button" class="btn btn-info" onclick="setBaseUrl()">Set Base Url</button>
-                        <button type="submit" class="btn btn-success">Set Tablet</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
 
-    <!--Modal Extend Form-->
-    <div class="modal fade" id="modalExtend" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: rgb(185, 194, 202);">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Extend</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <!--Modal Login Form-->
+        <div
+            class="modal fade"
+            id="modalSetting"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div
+                    class="modal-content"
+                    style="background-color: rgb(185, 194, 202);"
+                >
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">
+                            Setting
+                        </h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" id="formSetting">
+                        <input
+                            type="hidden"
+                            name="random"
+                            value=""
+                            id="codeRandom"
+                        />
+                        <div class="modal-body mx-3">
+                            <div class="md-form">
+                                <label for="code">Tablet Code</label>
+                                <input
+                                    type="text"
+                                    id="code"
+                                    autocomplete="off"
+                                    name="code"
+                                    class="form-control"
+                                    required
+                                />
+                            </div>
+                            <div class="md-form">
+                                <label for="baseUrl">Base Url</label>
+                                <input
+                                    type="text"
+                                    placeholder="http://192.168.1.1/meeting"
+                                    id="baseUrl"
+                                    autocomplete="off"
+                                    name="baseUrl"
+                                    class="form-control"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button
+                                type="button"
+                                class="btn btn-info"
+                                onclick="setBaseUrl()"
+                            >
+                                Set Base Url
+                            </button>
+                            <button type="submit" class="btn btn-success">
+                                Set Tablet
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <form method="POST" id="formExtend">
-                    <div class="modal-body mx-3">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Employee Id</label>
-                                <input type="text" autocomplete="off" name="employee_id" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Password</label>
-                                <input type="password" name="password" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="md-form">
-                            <label for="extend">Extend</label>
-                            <select class="form-control" name="extend" id="extend">
-                                <option value="15"> 15 Minutes </option>
-                                <option value="30"> 30 Minutes </option>
-                                <option value="45"> 45 Minutes </option>
-                                <option value="60"> 1 Hours </option>
-                                <option value="90"> 1 1/2 Hours </option>
-                                <option value="120"> 2 Hours </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success">Extend</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
 
-    <!--Modal Extend Form-->
-    <div class="modal fade" id="modalEnd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="background-color: rgb(185, 194, 202);">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">End Meeting</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        <!--Modal Extend Form-->
+        <div
+            class="modal fade"
+            id="modalExtend"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div
+                    class="modal-content"
+                    style="background-color: rgb(185, 194, 202);"
+                >
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">
+                            Extend
+                        </h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" id="formExtend">
+                        <div class="modal-body mx-3">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Employee Id</label>
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        name="employee_id"
+                                        class="form-control"
+                                        required
+                                    />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Password</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        class="form-control"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div class="md-form">
+                                <label for="extend">Extend</label>
+                                <select
+                                    class="form-control"
+                                    name="extend"
+                                    id="extend"
+                                >
+                                    <option value="15"> 15 Minutes </option>
+                                    <option value="30"> 30 Minutes </option>
+                                    <option value="45"> 45 Minutes </option>
+                                    <option value="60"> 1 Hours </option>
+                                    <option value="90"> 1 1/2 Hours </option>
+                                    <option value="120"> 2 Hours </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success">
+                                Extend
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <form method="POST" id="formEnd">
-                    <div class="modal-body mx-3">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label>Employee Id</label>
-                                <input type="text" autocomplete="off" name="employee_id" class="form-control" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>Password</label>
-                                <input type="password" name="password" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success">End Meeting</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
 
-</body>
-<script type="text/javascript">
-    var startTime = "";
-    var endTime = "";
-    var wantRefresh = 0;
-    var MS_PER_MINUTE = 60000;
-    alertify.set('notifier', 'position', 'top-right');
+        <!--Modal Extend Form-->
+        <div
+            class="modal fade"
+            id="modalEnd"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div
+                    class="modal-content"
+                    style="background-color: rgb(185, 194, 202);"
+                >
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">
+                            End Meeting
+                        </h4>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="POST" id="formEnd">
+                        <div class="modal-body mx-3">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Employee Id</label>
+                                    <input
+                                        type="text"
+                                        autocomplete="off"
+                                        name="employee_id"
+                                        class="form-control"
+                                        required
+                                    />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Password</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        class="form-control"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="submit" class="btn btn-success">
+                                End Meeting
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var startTime = "";
+        var endTime = "";
+        var wantRefresh = 0;
+        var fresh = 0;
+        var MS_PER_MINUTE = 60000;
+        alertify.set("notifier", "position", "top-right");
 
-    var nextMeeting = "";
-    var endMeeting = "";
-    var codeMeeting = "";
-    var statusRoom = "";
-    var conn;
+        var nextMeeting = "";
+        var endMeeting = "";
+        var codeMeeting = "";
+        var statusRoom = "";
+        var conn;
 
-    document.querySelector('#baseUrl').value = localStorage.getItem('baseUrl');
-    document.querySelector('#code').value = localStorage.getItem('codeTablet');
-    document.getElementById('titleRoom').textContent = localStorage.getItem('nameTablet');
+        document.querySelector("#baseUrl").value = localStorage.getItem(
+            "baseUrl"
+        );
+        document.querySelector("#code").value = localStorage.getItem(
+            "codeTablet"
+        );
+        document.getElementById("titleRoom").textContent = localStorage.getItem(
+            "nameTablet"
+        );
 
-    if (localStorage.getItem("baseUrl") == null) {
-        localStorage.setItem("baseUrl", "http://localhost/meetingrb");
-    }
+        if (localStorage.getItem("baseUrl") == null) {
+            localStorage.setItem("baseUrl", "http://localhost/meetingrb");
+        }
 
-    function setBaseUrl() {
-        localStorage.setItem("baseUrl", document.getElementById("baseUrl").value);
-        alertify.success("Base Url :" + localStorage.getItem("baseUrl"));
-    }
+        function setBaseUrl() {
+            localStorage.setItem(
+                "baseUrl",
+                document.getElementById("baseUrl").value
+            );
+            alertify.success("Base Url :" + localStorage.getItem("baseUrl"));
+        }
 
-    function startWebsocket() {
-        conn = new WebSocket('ws://c233b864ac6c.ngrok.io');
-        conn.onopen = function(e) {
-            console.log("Connection established!");
-        };
-
-        conn.onmessage = function(e) {
-            console.log(e);
-
-            try {
-                var parse = JSON.parse(e.data);
-                // var employee = parse.employee.includes(localStorage.getItem('_employee_id'));
-                var action = parse.action;
-
-                if (parse.id_room == localStorage.getItem('roomCode')) {
-
-                    let msgInfo = 'WS: Unknown action';
-
-                    if (action == 'add-meeting') {
-                        msgInfo = 'There is a new data meeting';
-                    } else if (action == 'start-meeting') {
-                        msgInfo = 'There is a meeting started';
-                    } else if (action == 'end-meeting') {
-                        msgInfo = 'There is a meeting ended';
-                        
-                        if (parse.booking_code == codeMeeting) {
-                            alertify.warning(msgInfo);
-                            return autoEnd();
-                        }
-
-                    } else if (action == 'extend-meeting') {
-                        msgInfo = 'There is a meeting extended';
-
-                        if (parse.booking_code == codeMeeting) {
-                            alertify.warning(msgInfo);
-                            return autoExtend();
-                        }
-                    }
-
-                    alertify.warning(msgInfo);
-                    btnTime();
-                    getData();
-                }
-
-            } catch (err) {
-                // text
-                console.error('Error when handle websocket data');
-                console.error(err);
+        function freshing() {
+            fresh += 1;
+            if (fresh == 3) {
+                document.getElementById("titleRoom").textContent = "Refreshing...";
+                location.reload();
             }
-        };
-
-        conn.onclose = function(event) {
-		
-			console.log("WebSocket is closed now, try to connect again");
-            startWebsocket();
-
-        };
-    }
-
-    function throwing(data, type = 'json') {
-
-        if (conn.readyState !== 1) {
-            let promise = new Promise(function(resolve, rejcet) {
-                startWebsocket();
-                resolve('done');
-            });
-
-            promise.then(function(result) {
-                conn.onopen = function(e) {
-                    throwing(data, type);
-                };
-            });
-        } else {
-
-            if (type == 'json') {
-                return conn.send(JSON.stringify(data));
-            }
-            return conn.send(data);
-        }
-    }
-
-    function autoEnd() {
-        statusRoom = "";
-        nextMeeting = "";
-        endMeeting = "";
-        codeMeeting = "";
-
-        document.getElementById('statusRoom').textContent = ""
-        document.getElementById('infoRoom').textContent = "";
-        document.getElementById('btnExtend').style.display = 'none';
-        document.getElementById('btnPlay').textContent = 'Find Meeting';
-        document.body.classList.remove('bodyDanger', 'bodyGo', 'bodyFine');
-        document.body.classList.add('bodyFine');
-        alertify.success('The meeting is over');
-
-        btnTime();
-        getData();
-        startMeeting();
-    }
-
-    function autoExtend() {
-        if (statusRoom == "meeting") {
-
-            statusRoom = "";
-            btnTime();
-            getData();
-        }
-    }
-
-    function startMeeting(end = false) {
-
-        if (localStorage.getItem('roomCode') == null) {
-            alertify.error("Room code has not been applied");
-            return false;
         }
 
-        if (nextMeeting == "") { // find meeting
-            let formData = new URLSearchParams();
-            formData.append('roomCode', localStorage.getItem('roomCode'));
+        function startWebsocket() {
+            var hostName = window.location.hostname;
+            conn = new WebSocket(`ws://${hostName}:8081`);
+            conn.onopen = function (e) {
+                document.querySelector("#titleRoom").style.color = "white";
+                console.log("Connection established!");
+            };
 
-            const options = {
-                method: 'POST',
-                body: formData,
-            }
-            var baseUrl = localStorage.getItem("baseUrl");
+            conn.onmessage = function (e) {
+                console.log(e);
 
-            document.getElementById('fetchData').style.display = "";
-            fetch(baseUrl + '/api/reservation/findmeeting', options)
-                .then(res => res.json())
-                .then((res) => {
+                try {
+                    var parse = JSON.parse(e.data);
+                    // var employee = parse.employee.includes(localStorage.getItem('_employee_id'));
+                    var action = parse.action;
 
-                    document.getElementById('fetchData').style.display = "none";
+                    if (parse.id_room == localStorage.getItem("roomCode")) {
+                        let msgInfo = "WS: Unknown action";
 
-                    if (res.error) {
-                        alertify.error(res.message);
-                    } else {
+                        if (action == "add-meeting") {
+                            msgInfo = "There is a new data meeting";
+                        } else if (action == "start-meeting") {
+                            msgInfo = "There is a meeting started";
+                        } else if (action == "end-meeting") {
+                            msgInfo = "There is a meeting ended";
 
-                        document.getElementById('statusRoom').textContent = 'Next Meeting: ' + res.data.meeting_name;
-                        document.getElementById('infoRoom').textContent = 'Host: ' + res.data.name + ', ' + res.data.booking_from + ' - ' + res.data.booking_to;
-
-                        nextMeeting = res.data.booking_code;
-                        endMeeting = res.data.booking_to;
-                        codeMeeting = res.data.booking_code;
-                        document.getElementById('btnPlay').textContent = 'Start Meeting';
-
-                        // console.log(res.data);
-                    }
-                });
-
-        } else {
-
-            if (statusRoom == "meeting") {
-
-                if (end) {
-                    return doneMeeting();
-                    // return false;
-                }
-
-                $('#modalEnd').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
-                $('#formEnd').trigger('reset');
-
-                // if (confirm("Are you sure you want to end this meeting?")) {
-                // }
-
-                return false;
-
-            } else {
-
-                // login for new meeting 
-
-                $('#modalLoginMeeting').modal({
-                    backdrop: 'static',
-                    keyboard: false
-                });
-                $('#formLoginMeeting').trigger('reset');
-            }
-
-        }
-
-    }
-
-    function doneMeeting() {
-        
-        let formData = new URLSearchParams();
-        formData.append("booking_code", codeMeeting);
-        formData.append("auto", "tablet");
-
-        const options = {
-            method: "POST",
-            body: formData,
-        }
-        var baseUrl = localStorage.getItem("baseUrl");
-
-        document.getElementById('fetchData').style.display = "";
-
-        fetch(baseUrl + '/api/reservation/endmeeting', options)
-            .then(res => res.json())
-            .then((res) => {
-
-                document.getElementById('fetchData').style.display = "none";
-
-                if (res.error) {
-                    alertify.error(res.message);
-                } else {
-
-                    statusRoom = "";
-                    nextMeeting = "";
-                    endMeeting = "";
-                    codeMeeting = "";
-
-                    document.getElementById('statusRoom').textContent = ""
-                    document.getElementById('infoRoom').textContent = "";
-                    document.getElementById('btnExtend').style.display = 'none';
-                    document.getElementById('btnPlay').textContent = 'Find Meeting';
-                    document.body.classList.remove('bodyDanger', 'bodyGo', 'bodyFine');
-                    document.body.classList.add('bodyFine');
-                    alertify.success(res.message);
-                    
-                    btnTime();
-                    getData();
-                    startMeeting();
-                }
-            })
-    }
-
-    function extendMeeting() {
-        $('#modalExtend').modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-        $("#formExtend").trigger("reset");
-    }
-
-    function getData() {
-
-        wantRefresh = 0;
-
-        if (localStorage.getItem('roomCode') == null) {
-            return false;
-        }
-
-        document.querySelector("#show_btnTime").style.pointerEvents = "none";
-
-        let formData = new URLSearchParams();
-        formData.append('roomCode', localStorage.getItem('roomCode'));
-
-        const options = {
-            method: 'POST',
-            body: formData,
-        }
-        var baseUrl = localStorage.getItem("baseUrl");
-
-        document.getElementById('fetchData').style.display = "";
-        fetch(baseUrl + '/api/reservation/datareservation', options)
-            .then(res => res.json())
-            .then((res) => {
-                if (res.error) {
-                    alertify.error(res.message);
-                    document.querySelector("#titleRoom").textContent = "Please set the room code";
-                } else {
-
-                    res.data.forEach(function(item, i) {
-
-                        let from = document.querySelector("button[value='" + item.booking_from + "']");
-                        let to = document.querySelector("button[value='" + item.booking_to + "']");
-                        let length = parseInt(to.id) - parseInt(from.id);
-
-                        if (length < 0) {
-                            length = parseInt(96) - parseInt(from.id);
-                        }
-
-                        if (length !== 1) {
-                            for (let i = 0; i < length; i++) {
-
-                                var id = parseInt(from.id) + parseInt(i);
-                                // console.log(id);
-
-                                var btn = document.querySelector("button[id='" + id + "']");
-
-                                if (i != 0 && i !== length - 1) {
-                                    btn.textContent = '--';
-                                }
-
-                                if (i == length - 1) {
-                                    btn.textContent = item.booking_to;
-                                    if (length == 2) {
-                                        from.textContent = item.booking_from + " --";
-                                        btn.textContent = "-- "+item.booking_to;
-                                    }
-                                }
-
-                                btn.classList.remove('btn-success', 'btn-info', 'btn-primary', 'btn-danger');
-                                
-                                if (item.status == 'waiting' || item.status == 'progress') {
-                                    btn.classList.add("btn-warning");
-                                } else {
-                                    btn.classList.add("btn-danger");
-                                }
+                            if (parse.booking_code == codeMeeting) {
+                                alertify.warning(msgInfo);
+                                return autoEnd();
                             }
-                        } else {
-                            for (let i = 0; i < length; i++) {
+                        } else if (action == "extend-meeting") {
+                            msgInfo = "There is a meeting extended";
 
-                                let id = parseInt(from.id) + parseInt(i);
-
-                                let btn = document.querySelector("button[id='" + id + "']");
-                                btn.textContent = item.booking_from + ' -- ' + item.booking_to;
-                                
-                                btn.classList.remove('btn-success', 'btn-info', 'btn-primary', 'btn-danger');
-                                
-                                if (item.status == 'waiting' || item.status == 'progress') {
-                                    btn.classList.add("btn-warning");
-                                } else {
-                                    btn.classList.add("btn-danger");
-                                }
-                                // btn.classList.add('btn-danger');
+                            if (parse.booking_code == codeMeeting) {
+                                alertify.warning(msgInfo);
+                                return autoExtend();
                             }
                         }
 
-                        if (statusRoom == "") {
-                            if (res.alreadyCheckIn.length != 0) {
-                                signInAuto(res.alreadyCheckIn);
-                            }
-                        }
-
-                    });
-                    // document.querySelector("#show_btnTime").classList.remove('pointer-events');
-                    // reset();
-                }
-                document.getElementById('fetchData').style.display = "none";
-                document.querySelector("#show_btnTime").style.pointerEvents = "";
-            });
-
-    }
-
-    function refresh() {
-        wantRefresh += 1;
-        if (wantRefresh == 8) {
-            $('#modalSetting').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-        } else if (wantRefresh == 10) {
-            document.getElementById('titleRoom').textContent = 'Refreshing...';
-            location.reload();
-        }
-        return false;
-    }
-
-    function bootTime() {
-        var today = new Date();
-        var d = today.getDay();
-        var dt = today.getDate();
-        var mo = String(today.getMonth() + 1).padStart(2, "0");
-        var y = today.getFullYear();
-        var h = String(today.getHours()).padStart(2, "0");
-        var m = String(today.getMinutes()).padStart(2, "0");
-        var s = String(today.getSeconds()).padStart(2, "0");
-        // m = checkTime(m);
-        // s = checkTime(s);
-        d = checkDay(d);
-        document.getElementById("showing_time").innerHTML =
-            h + ":" + m + ":" + s;
-        document.getElementById("showing_date").innerHTML =
-            d + ", " + dt + "/" + mo + "/" + y;
-
-        if (
-            document.querySelector("button[value='" + h + ":" + m + "']") !== null && s == "00"
-        ) { // every 15 minutes   
-            btnTime();
-            getData();
-            $("button[name='btn_" + h + ":" + m + "']").focus();
-        }
-
-        if (nextMeeting != "") {
-
-            if (endMeeting == h + ":" + m) {
-                
-                if (s == "00" || s == "15" || s == "30" || s == "45") {
-                    startMeeting(true);
-                }
-
-                // document.body.classList.remove('bodyDanger', 'bodyGo', 'bodyFine');
-                // document.body.classList.add('bodyFine');
-
-                // nextMeeting = "";
-                // endMeeting = "";
-                // codeMeeting = "";
-                // document.getElementById('statusRoom').textContent = ""
-                // document.getElementById('infoRoom').textContent = "";
-
-                // document.getElementById('btnPlay').textContent = 'Find Meeting';
-            }
-        }
-
-        setTimeout(bootTime, 1000);
-        // console.log(t);
-    }
-
-    function checkDay(i) {
-        if (i == 1) {
-            i = "Monday";
-        } else if (i == 2) {
-            i = "Thursday";
-        } else if (i == 3) {
-            i = "Wednesday";
-        } else if (i == 4) {
-            i = "Tuesday";
-        } else if (i == 5) {
-            i = "Friday";
-        } else if (i == 6) {
-            i = "Saturday";
-        } else {
-            i = "Sunday";
-        }
-        return i;
-    }
-
-    function checkTime(i) {
-        if (i < 10) {
-            i = "0" + i;
-        }
-        return i;
-    }
-
-    function btnTime() {
-        var today = new Date();
-        var h = String(today.getHours()).padStart(2, "0");
-
-        $("#show_btnTime").empty();
-
-        let sequence = 0;
-        for (var i = 0; i < 24; i++) {
-            var ix = checkTime(i);
-            var html1 =
-                '<button type="button" class="btn btn-success" type="button" style="margin-top: 100px; width: fit-content;height: 60px;font-size: 15px;" id="' + sequence + '" name="btn_' + ix + ':00" value="' + ix + ':00" onclick="setStart(\'' + ix + ':00\')">' + ix + ':00</button>';
-            $("#show_btnTime").append(html1);
-            sequence++;
-
-            var html2 =
-                '<button type="button" class="btn btn-success" type="button" style="margin-top: 100px; width: fit-content;height: 60px;font-size: 15px;" id="' + sequence + '" name="btn_' + ix + ':15" value="' + ix + ':15" onclick="setStart(\'' + ix + ':15\')">' + ix + ':15</button>';
-            $("#show_btnTime").append(html2);
-            sequence++;
-
-            var html3 =
-                '<button type="button" class="btn btn-success" type="button" style="margin-top: 100px; width: fit-content;height: 60px;font-size: 15px;" id="' + sequence + '" name="btn_' + ix + ':30" value="' + ix + ':30" onclick="setStart(\'' + ix + ':30\')">' + ix + ':30</button>';
-            $("#show_btnTime").append(html3);
-            sequence++;
-
-            var html3 =
-                '<button type="button" class="btn btn-success" type="button" style="margin-top: 100px; width: fit-content;height: 60px;font-size: 15px;" id="' + sequence + '" name="btn_' + ix + ':45" value="' + ix + ':45" onclick="setStart(\'' + ix + ':45\')">' + ix + ':45</button>';
-            $("#show_btnTime").append(html3);
-            sequence++;
-        }
-
-        document.querySelector('button[value=\'' + h + ':00\']').focus();
-        document.querySelector('button[value=\'' + h + ':00\']').blur();
-    }
-
-    function setStart(value) {
-
-        if (statusRoom == 'meeting') {
-            alertify.warning("Room is in use");
-            return false;
-        }
-
-        // if (value == '23:30' && startTime == '') {
-        //     return false;
-        // }
-
-        var btnChoose = document.querySelector("button[value='" + value + "']");
-        if (btnChoose.classList.contains('btn-danger') || btnChoose.classList.contains('btn-warning')) {
-            return false;
-        }
-
-        if (startTime !== "") {
-            if (btnChoose.id < document.querySelector("button[value='" + startTime + "']").id) {
-                return false;
-            }
-        }
-
-        if (startTime == '') {
-
-            let dt = new Date();
-            dt.setMinutes(dt.getMinutes() - 5);
-
-            if (Date.parse('01/01/2020 ' + dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds()) >
-                Date.parse('01/01/2020 ' + value + ':00')) {
-                alertify.error("The time has passed");
-                return false;
-            }
-
-            // btnChoose.setAttribute("disabled", "");
-
-            startTime = value;
-            document.getElementById('label_start').textContent = 'Start :';
-            document.getElementById('start_from').textContent = value;
-
-            btnAfter(value);
-            // btnBefore(value, btnChoose.id);
-
-        } else {
-
-            if (btnChecker(btnChoose)) {
-                return false;
-            }
-
-            $('#show_btnTime :button').not("button[value='" + startTime + "']").not("button[class='btn btn-danger']").addClass('btn-success').removeClass('btn-info').removeAttr('disabled');
-            btnAfter(value);
-        }
-
-        btnChoose.classList.add('btn-info');
-        btnChoose.classList.remove('btn-success');
-    }
-
-    function btnChecker(btnChoose) {
-        let from = document.querySelector("button[value='" + startTime + "']");
-        // let to = document.querySelector("button[value='" + endTime + "']");
-        let length = parseInt(btnChoose.id) - parseInt(from.id);
-
-        for (let i = 0; i < length; i++) {
-
-            let id = parseInt(from.id) + parseInt(i);
-            let btn = document.querySelector("button[id='" + id + "']");
-            if (btn.classList.contains('btn-danger') || btn.classList.contains('btn-warning')) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function btnAfter(value) {
-
-        var time = value;
-        let tm = time.split(":");
-        let hours = parseInt(tm[0]);
-        let minutes = parseInt(tm[1]);
-        let today = new Date();
-        let month = today.getMonth();
-        let day = today.getDate();
-        let year = today.getFullYear();
-        let choose = new Date(year, month, day, hours, minutes);
-        let myStartDate = new Date(choose.getTime() + 15 * MS_PER_MINUTE);
-
-        endTime = String(myStartDate.getHours()).padStart(2, "0") + ':' + String(myStartDate.getMinutes()).padStart(2, "0");
-        document.getElementById('label_end').textContent = 'End :';
-        document.getElementById('end_from').textContent = endTime;
-        document.getElementById('btn_action').removeAttribute('hidden');
-    }
-
-    function saveData(token) {
-
-        if (token === null || !token) {
-            $('#modalLoginForm').modal({
-                backdrop: 'static',
-                keyboard: false
-            });
-            $('#formlogin').trigger('reset');
-            return false;
-        }
-
-        let formData = new URLSearchParams();
-        formData.append('start', startTime);
-        formData.append('end', endTime);
-        formData.append('platform', 'tablet');
-        formData.append('meeting_name', document.getElementById("meeting_name").value);
-        formData.append('roomCode', localStorage.getItem('roomCode'));
-
-        const options = {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'X-API-KEY': token,
-            }
-        }
-        var baseUrl = localStorage.getItem("baseUrl");
-
-        document.getElementById('fetchData').style.display = "";
-        $("button[type='submit']").attr("disabled", true);
-
-        fetch(baseUrl + '/api/reservation/store', options)
-            .then(res => res.json())
-            .then((res) => {
-
-                document.getElementById('fetchData').style.display = "none";
-                $("button[type='submit']").attr("disabled", false);
-
-                if (res.error) {
-                    alertify.error(res.message);
-                } else {
-                    alertify.success(res.message);
-                    $('#modalLoginForm').modal('hide');
-                    reset();
-                    getData();
-                    startMeeting();
-                    throwing({
-                        'action': 'add-meeting',
-                        'employee': res.employee_id,
-                        'id_room': res.id_room,
-                    });
-                }
-            });
-    }
-
-    function signInAuto(dataBefore) {
-
-        nextMeeting = dataBefore.booking_code;
-        endMeeting = dataBefore.booking_to;
-        codeMeeting = dataBefore.booking_code;
-
-        document.body.classList.remove('bodyDanger', 'bodyGo', 'bodyFine');
-        document.body.classList.add('bodyDanger');
-        statusRoom = "meeting";
-
-        document.getElementById('statusRoom').textContent = 'In progress : ' + dataBefore.meeting_name;
-        document.getElementById('infoRoom').textContent = 'Host: ' + dataBefore.name + ', ' + dataBefore.booking_from + ' - ' + dataBefore.booking_to;
-
-        document.getElementById('btnPlay').textContent = 'End';
-        document.getElementById('btnExtend').textContent = 'Extend';
-        document.getElementById('btnExtend').style.display = '';
-
-    }
-
-    function reset() {
-
-        $('#show_btnTime :button').not(".btn-danger .btn-warning").addClass('btn-success').removeClass('btn-info').removeAttr('disabled');
-
-        endTime = "";
-        startTime = "";
-
-        document.getElementById('label_start').textContent = '';
-        document.getElementById('label_end').textContent = '';
-        document.getElementById('btn_action').setAttribute('hidden', true);
-
-        document.querySelector('#start_from').textContent = "";
-        document.querySelector('#end_from').textContent = "";
-    }
-
-    $(document).ready(function() {
-        bootTime();
-        btnTime();
-        getData();
-        startWebsocket();
-
-        $('#formlogin').submit(function(e) {
-            e.preventDefault();
-
-            const options = {
-                method: 'POST',
-                body: $(this).serialize(),
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                }
-            }
-            var baseUrl = localStorage.getItem("baseUrl");
-
-            document.getElementById('fetchData').style.display = "";
-            $("button[type='submit']").attr("disabled", true);
-
-            fetch(baseUrl + '/api/employees/check_login', options)
-                .then(res => res.json())
-                .then((res) => {
-
-                    document.getElementById('fetchData').style.display = "none";
-                    $("button[type='submit']").attr("disabled", false);
-                    
-                    if (res.error) {
-                        alertify.error(res.message);
-                    } else {
-
-                        if (res.admin) {
-                            $('#modalLoginForm').modal('hide');
-                            $('#modalSetting').modal({
-                                backdrop: 'static',
-                                keyboard: false
-                            });
-                            document.querySelector('#codeRandom').value = res.data.token;
-                            return;
-                        }
-
-                        saveData(res.data.token);
-                    }
-                });
-
-        });
-
-        $('#formSetting').submit(function(e) {
-            e.preventDefault();
-
-            let formData = new URLSearchParams();
-            formData.append('code', document.querySelector('#code').value);
-
-            const options = {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'X-API-KEY': document.querySelector('#codeRandom').value,
-                }
-            }
-
-            localStorage.setItem("baseUrl", document.querySelector('#baseUrl').value);
-            var baseUrl = localStorage.getItem("baseUrl");
-
-            document.getElementById('fetchData').style.display = "";
-
-            $("button[type='submit']").attr("disabled", true);
-
-            fetch(baseUrl + '/api/tablets/setTablet', options)
-                .then(res => res.json())
-                .then((res) => {
-
-                    document.getElementById('fetchData').style.display = "none";
-                    $("button[type='submit']").attr("disabled", false);
-
-                    if (res.error) {
-                        alertify.error(res.message);
-                    } else {
-
-                        localStorage.setItem("nameTablet", res.area.name);
-                        localStorage.setItem("roomCode", res.data.id_rooms);
-                        localStorage.setItem("codeTablet", document.querySelector('#code').value);
-
-                        document.getElementById('titleRoom').textContent = localStorage.getItem('nameTablet');
-                        alertify.success(res.message);
-                    }
-                });
-
-        });
-
-        $("#formLoginMeeting").submit(function(e) {
-            e.preventDefault();
-            if (nextMeeting == "") {
-                return false;
-            }
-
-            let formData = new URLSearchParams();
-            formData.append('employee_id', document.querySelector('#employee').value);
-            formData.append('password', document.querySelector('#pwd').value);
-            formData.append('booking_code', nextMeeting);
-
-            const options = {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                }
-            }
-            var baseUrl = localStorage.getItem("baseUrl");
-
-            document.getElementById('fetchData').style.display = "";
-
-            $("button[type='submit']").attr("disabled", true);
-
-            fetch(baseUrl + '/api/reservation/checkin', options)
-                .then(res => res.json())
-                .then((res) => {
-
-                    document.getElementById('fetchData').style.display = "none";
-                    $("button[type='submit']").attr("disabled", false);
-
-                    if (res.error) {
-                        alertify.error(res.message);
-                    } else {
-                        $('#modalLoginMeeting').modal('hide');
-
-                        alertify.success(res.message);
-                        document.body.classList.remove('bodyDanger', 'bodyGo', 'bodyFine');
-                        document.body.classList.add('bodyDanger');
-                        statusRoom = "meeting";
-
-                        document.getElementById('statusRoom').textContent = 'In progress: ' + res.data.meeting_name;
-                        document.getElementById('infoRoom').textContent = 'Host: ' + res.data.name + ', ' + res.data.booking_from + ' - ' + res.data.booking_to;
-
-                        document.getElementById('btnPlay').textContent = 'End';
-                        document.getElementById('btnExtend').textContent = 'Extend';
-                        document.getElementById('btnExtend').style.display = '';
-                        
-                        throwing({
-                            'action': 'start-meeting',
-                            'employee': res.employee_id,
-                            'id_room': res.id_room,
-                        });
-                    }
-                });
-
-        });
-
-        $("#formExtend").submit(function(e) {
-            e.preventDefault();
-
-            if (codeMeeting == "") {
-                return false;
-            }
-            // let formData = new URLSearchParams();
-            // formData.append("booking_code", codeMeeting);
-            // formData.append("extend", document.getElementById("extend").value);
-
-            const options = {
-                method: 'POST',
-                body: $(this).serialize() + '&booking_code=' + codeMeeting,
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                }
-            }
-            var baseUrl = localStorage.getItem("baseUrl");
-
-            document.getElementById('fetchData').style.display = "";
-            $("button[type='submit']").attr("disabled", true);
-
-            fetch(baseUrl + '/api/reservation/extendmeeting', options)
-                .then(res => res.json())
-                .then((res) => {
-
-                    document.getElementById('fetchData').style.display = "none";
-                    $("button[type='submit']").attr("disabled", false);
-
-                    if (res.error) {
-                        alertify.error(res.message);
-                    } else {
-
-                        endMeeting = res.extendTime;
-                        document.getElementById('infoRoom').textContent = 'Host: ' + res.data.name + ', ' + res.data.booking_from + ' - ' + res.extendTime;
+                        alertify.warning(msgInfo);
                         btnTime();
                         getData();
-                        alertify.success(res.message);
-                        $('#modalExtend').modal('hide');
-
-                        throwing({
-                            'action': 'extend-meeting',
-                            'employee': res.employee_id,
-                            'id_room': res.id_room,
-                            'booking_code': res.booking_code,
-                        });
                     }
+                } catch (err) {
+                    // text
+                    console.error("Error when handle websocket data");
+                    console.error(err);
+                }
+            };
+
+            conn.onclose = function (event) {
+                console.log("WebSocket is closed now, try to connect again");
+                document.querySelector("#titleRoom").style.color = "red";
+                startWebsocket();
+            };
+        }
+
+        function throwing(data, type = "json") {
+            if (conn.readyState !== 1) {
+                let promise = new Promise(function (resolve, rejcet) {
+                    startWebsocket();
+                    resolve("done");
                 });
-            
-        });
 
-        $("#formEnd").submit(function (e) { 
-            e.preventDefault();
+                promise.then(function (result) {
+                    conn.onopen = function (e) {
+                        throwing(data, type);
+                    };
+                });
+            } else {
+                if (type == "json") {
+                    return conn.send(JSON.stringify(data));
+                }
+                return conn.send(data);
+            }
+        }
 
-            if (codeMeeting == "") {
+        function autoEnd() {
+            statusRoom = "";
+            nextMeeting = "";
+            endMeeting = "";
+            codeMeeting = "";
+
+            document.getElementById("statusRoom").textContent = "";
+            document.getElementById("infoRoom").textContent = "";
+            document.getElementById("btnExtend").style.display = "none";
+            // document.getElementById("btnPlay").textContent = "Find Meeting";
+            document.body.classList.remove("bodyDanger", "bodyGo", "bodyFine");
+            document.body.classList.add("bodyFine");
+            alertify.success("The meeting is over");
+
+            btnTime();
+            getData();
+            startMeeting();
+        }
+
+        function autoExtend() {
+            if (statusRoom == "meeting") {
+                statusRoom = "";
+                btnTime();
+                getData();
+            }
+        }
+
+        function findMeeting() {
+            if (statusRoom == "") {
+                let formData = new URLSearchParams();
+                formData.append("roomCode", localStorage.getItem("roomCode"));
+
+                const options = {
+                    method: "POST",
+                    body: formData,
+                };
+                var baseUrl = localStorage.getItem("baseUrl");
+
+                document.getElementById("fetchData").style.display = "";
+                fetch(baseUrl + "/api/reservation/findmeeting", options)
+                    .then((res) => res.json())
+                    .then((res) => {
+                        document.getElementById("fetchData").style.display =
+                            "none";
+
+                        if (res.error) {
+                            document.getElementById("statusRoom").textContent = "";
+                            document.getElementById("infoRoom").textContent = "";
+
+                            nextMeeting = "";
+                            endMeeting = "";
+                            codeMeeting = "";
+                            document.getElementById("btnPlay").style.display = "none";
+                            alertify.error(res.message);
+                        } else {
+                            document.getElementById("statusRoom").textContent =
+                                "Next Meeting: " + res.data.meeting_name;
+                            document.getElementById("infoRoom").textContent =
+                                "Host: " +
+                                res.data.name +
+                                ", " +
+                                res.data.booking_from +
+                                " - " +
+                                res.data.booking_to;
+
+                            nextMeeting = res.data.booking_code;
+                            endMeeting = res.data.booking_to;
+                            codeMeeting = res.data.booking_code;
+                            document.getElementById("btnPlay").textContent =
+                                "Start Meeting";
+                            document.getElementById("btnPlay").style.display =
+                                "";
+
+                            // console.log(res.data);
+                        }
+                    });
+            }
+        }
+
+        function startMeeting(end = false) {
+            if (localStorage.getItem("roomCode") == null) {
+                alertify.error("Room code has not been applied");
                 return false;
             }
 
-            alertify.confirm('Warning', 'Are you sure you want to end this meeting?', function() {
+            if (nextMeeting == "") {
+                // find meeting
+                let formData = new URLSearchParams();
+                formData.append("roomCode", localStorage.getItem("roomCode"));
 
-                $("button[type='submit']").attr("disabled", true);
-                
                 const options = {
-                    method: 'POST',
-                    body: $("#formEnd").serialize() + '&booking_code=' + codeMeeting,
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                    }
-                }
+                    method: "POST",
+                    body: formData,
+                };
                 var baseUrl = localStorage.getItem("baseUrl");
 
-                document.getElementById('fetchData').style.display = "";
-
-                fetch(baseUrl + '/api/reservation/endmeeting', options)
-                    .then(res => res.json())
+                document.getElementById("fetchData").style.display = "";
+                fetch(baseUrl + "/api/reservation/findmeeting", options)
+                    .then((res) => res.json())
                     .then((res) => {
+                        document.getElementById("fetchData").style.display =
+                            "none";
 
-                        document.getElementById('fetchData').style.display = "none";
+                        if (res.error) {
+                            document.getElementById("statusRoom").textContent = "";
+                            document.getElementById("infoRoom").textContent = "";
+
+                            nextMeeting = "";
+                            endMeeting = "";
+                            codeMeeting = "";
+                            document.getElementById("btnPlay").style.display = "none";
+
+                            alertify.error(res.message);
+                        } else {
+                            document.getElementById("statusRoom").textContent =
+                                "Next Meeting: " + res.data.meeting_name;
+                            document.getElementById("infoRoom").textContent =
+                                "Host: " +
+                                res.data.name +
+                                ", " +
+                                res.data.booking_from +
+                                " - " +
+                                res.data.booking_to;
+
+                            nextMeeting = res.data.booking_code;
+                            endMeeting = res.data.booking_to;
+                            codeMeeting = res.data.booking_code;
+                            document.getElementById("btnPlay").textContent =
+                                "Start Meeting";
+                            document.getElementById("btnPlay").style.display =
+                                "";
+
+                            // console.log(res.data);
+                        }
+                    });
+            } else {
+                if (statusRoom == "meeting") {
+                    if (end) {
+                        return doneMeeting();
+                        // return false;
+                    }
+
+                    $("#modalEnd").modal({
+                        backdrop: "static",
+                        keyboard: false,
+                    });
+                    $("#formEnd").trigger("reset");
+
+                    // if (confirm("Are you sure you want to end this meeting?")) {
+                    // }
+
+                    return false;
+                } else {
+                    // pass meeting
+                    if (end) {
+                        nextMeeting = "";
+                        endMeeting = "";
+                        codeMeeting = "";
+                        // document.getElementById("btnPlay").textContent = "Find Meeting";
+                        return startMeeting();
+                        // return false;
+                    }
+
+                    // login for new meeting
+                    $("#modalLoginMeeting").modal({
+                        backdrop: "static",
+                        keyboard: false,
+                    });
+                    $("#formLoginMeeting").trigger("reset");
+                }
+            }
+        }
+
+        function doneMeeting() {
+            let formData = new URLSearchParams();
+            formData.append("booking_code", codeMeeting);
+            formData.append("auto", "tablet");
+
+            const options = {
+                method: "POST",
+                body: formData,
+            };
+            var baseUrl = localStorage.getItem("baseUrl");
+
+            document.getElementById("fetchData").style.display = "";
+
+            fetch(baseUrl + "/api/reservation/endmeeting", options)
+                .then((res) => res.json())
+                .then((res) => {
+                    document.getElementById("fetchData").style.display = "none";
+
+                    if (res.error) {
+                        alertify.error(res.message);
+                    } else {
+                        statusRoom = "";
+                        nextMeeting = "";
+                        endMeeting = "";
+                        codeMeeting = "";
+
+                        document.getElementById("statusRoom").textContent = "";
+                        document.getElementById("infoRoom").textContent = "";
+                        document.getElementById("btnExtend").style.display =
+                            "none";
+                        // document.getElementById("btnPlay").textContent = "Find Meeting";
+                        document.body.classList.remove(
+                            "bodyDanger",
+                            "bodyGo",
+                            "bodyFine"
+                        );
+                        document.body.classList.add("bodyFine");
+                        alertify.success(res.message);
+
+                        btnTime();
+                        getData();
+                        startMeeting();
+                    }
+                });
+        }
+
+        function extendMeeting() {
+            $("#modalExtend").modal({
+                backdrop: "static",
+                keyboard: false,
+            });
+            $("#formExtend").trigger("reset");
+        }
+
+        function getData() {
+            wantRefresh = 0;
+
+            if (localStorage.getItem("roomCode") == null) {
+                return false;
+            }
+
+            document.querySelector("#show_btnTime").style.pointerEvents =
+                "none";
+
+            let formData = new URLSearchParams();
+            formData.append("roomCode", localStorage.getItem("roomCode"));
+
+            const options = {
+                method: "POST",
+                body: formData,
+            };
+            var baseUrl = localStorage.getItem("baseUrl");
+
+            document.getElementById("fetchData").style.display = "";
+            fetch(baseUrl + "/api/reservation/datareservation", options)
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.error) {
+                        alertify.error(res.message);
+                        document.querySelector("#titleRoom").textContent =
+                            "Please set the room code";
+                    } else {
+                        res.data.forEach(function (item, i) {
+                            let from = document.querySelector(
+                                "button[value='" + item.booking_from + "']"
+                            );
+                            let to = document.querySelector(
+                                "button[value='" + item.booking_to + "']"
+                            );
+                            let length = parseInt(to.id) - parseInt(from.id);
+
+                            if (length < 0) {
+                                length = parseInt(96) - parseInt(from.id);
+                            }
+
+                            if (length !== 1) {
+                                for (let i = 0; i < length; i++) {
+                                    var id = parseInt(from.id) + parseInt(i);
+                                    // console.log(id);
+
+                                    var btn = document.querySelector(
+                                        "button[id='" + id + "']"
+                                    );
+
+                                    if (i != 0 && i !== length - 1) {
+                                        btn.textContent = "--";
+                                    }
+
+                                    if (i == length - 1) {
+                                        btn.textContent = item.booking_to;
+                                        if (length == 2) {
+                                            from.textContent =
+                                                item.booking_from + " --";
+                                            btn.textContent =
+                                                "-- " + item.booking_to;
+                                        }
+                                    }
+
+                                    btn.classList.remove(
+                                        "btn-success",
+                                        "btn-info",
+                                        "btn-primary",
+                                        "btn-danger"
+                                    );
+
+                                    if (
+                                        item.status == "waiting" ||
+                                        item.status == "progress"
+                                    ) {
+                                        btn.classList.add("btn-warning");
+                                    } else {
+                                        btn.classList.add("btn-danger");
+                                    }
+                                }
+                            } else {
+                                for (let i = 0; i < length; i++) {
+                                    let id = parseInt(from.id) + parseInt(i);
+
+                                    let btn = document.querySelector(
+                                        "button[id='" + id + "']"
+                                    );
+                                    btn.textContent =
+                                        item.booking_from +
+                                        " -- " +
+                                        item.booking_to;
+
+                                    btn.classList.remove(
+                                        "btn-success",
+                                        "btn-info",
+                                        "btn-primary",
+                                        "btn-danger"
+                                    );
+
+                                    if (
+                                        item.status == "waiting" ||
+                                        item.status == "progress"
+                                    ) {
+                                        btn.classList.add("btn-warning");
+                                    } else {
+                                        btn.classList.add("btn-danger");
+                                    }
+                                    // btn.classList.add('btn-danger');
+                                }
+                            }
+
+                            if (statusRoom == "") {
+                                if (res.alreadyCheckIn.length != 0) {
+                                    signInAuto(res.alreadyCheckIn);
+                                }
+                            }
+                        });
+                        // document.querySelector("#show_btnTime").classList.remove('pointer-events');
+                        // reset();
+                    }
+                    document.getElementById("fetchData").style.display = "none";
+                    document.querySelector(
+                        "#show_btnTime"
+                    ).style.pointerEvents = "";
+                });
+        }
+
+        function refresh() {
+            wantRefresh += 1;
+            if (wantRefresh == 8) {
+                $("#modalSetting").modal({
+                    backdrop: "static",
+                    keyboard: false,
+                });
+            } else if (wantRefresh == 10) {
+                document.getElementById("titleRoom").textContent =
+                    "Refreshing...";
+                location.reload();
+            }
+            return false;
+        }
+
+        function bootTime() {
+            var today = new Date();
+            var d = today.getDay();
+            var dt = today.getDate();
+            var mo = String(today.getMonth() + 1).padStart(2, "0");
+            var y = today.getFullYear();
+            var h = String(today.getHours()).padStart(2, "0");
+            var m = String(today.getMinutes()).padStart(2, "0");
+            var s = String(today.getSeconds()).padStart(2, "0");
+            // m = checkTime(m);
+            // s = checkTime(s);
+            d = checkDay(d);
+            document.getElementById("showing_time").innerHTML =
+                h + ":" + m + ":" + s;
+            document.getElementById("showing_date").innerHTML =
+                d + ", " + dt + "/" + mo + "/" + y;
+
+            if (
+                document.querySelector(
+                    "button[value='" + h + ":" + m + "']"
+                ) !== null &&
+                s == "00"
+            ) {
+                // every 15 minutes
+                btnTime();
+                getData();
+                $("button[name='btn_" + h + ":" + m + "']").focus();
+            }
+
+            if (nextMeeting != "") {
+                if (endMeeting == h + ":" + m) {
+                    if (s == "00" || s == "15" || s == "30" || s == "45") {
+                        startMeeting(true);
+                    }
+
+                    // document.body.classList.remove('bodyDanger', 'bodyGo', 'bodyFine');
+                    // document.body.classList.add('bodyFine');
+
+                    // nextMeeting = "";
+                    // endMeeting = "";
+                    // codeMeeting = "";
+                    // document.getElementById('statusRoom').textContent = ""
+                    // document.getElementById('infoRoom').textContent = "";
+
+                    // document.getElementById('btnPlay').textContent = 'Find Meeting';
+                }
+            }
+
+            setTimeout(bootTime, 1000);
+            // console.log(t);
+        }
+
+        function checkDay(i) {
+            if (i == 1) {
+                i = "Monday";
+            } else if (i == 2) {
+                i = "Thursday";
+            } else if (i == 3) {
+                i = "Wednesday";
+            } else if (i == 4) {
+                i = "Tuesday";
+            } else if (i == 5) {
+                i = "Friday";
+            } else if (i == 6) {
+                i = "Saturday";
+            } else {
+                i = "Sunday";
+            }
+            return i;
+        }
+
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+
+        function btnTime() {
+            var today = new Date();
+            var h = String(today.getHours()).padStart(2, "0");
+
+            $("#show_btnTime").empty();
+
+            let sequence = 0;
+            for (var i = 0; i < 24; i++) {
+                var ix = checkTime(i);
+                var html1 =
+                    '<button type="button" class="btn btn-success" type="button" style="margin-top: 100px; width: fit-content;height: 60px;font-size: 15px;" id="' +
+                    sequence +
+                    '" name="btn_' +
+                    ix +
+                    ':00" value="' +
+                    ix +
+                    ':00" onclick="setStart(\'' +
+                    ix +
+                    ":00')\">" +
+                    ix +
+                    ":00</button>";
+                $("#show_btnTime").append(html1);
+                sequence++;
+
+                var html2 =
+                    '<button type="button" class="btn btn-success" type="button" style="margin-top: 100px; width: fit-content;height: 60px;font-size: 15px;" id="' +
+                    sequence +
+                    '" name="btn_' +
+                    ix +
+                    ':15" value="' +
+                    ix +
+                    ':15" onclick="setStart(\'' +
+                    ix +
+                    ":15')\">" +
+                    ix +
+                    ":15</button>";
+                $("#show_btnTime").append(html2);
+                sequence++;
+
+                var html3 =
+                    '<button type="button" class="btn btn-success" type="button" style="margin-top: 100px; width: fit-content;height: 60px;font-size: 15px;" id="' +
+                    sequence +
+                    '" name="btn_' +
+                    ix +
+                    ':30" value="' +
+                    ix +
+                    ':30" onclick="setStart(\'' +
+                    ix +
+                    ":30')\">" +
+                    ix +
+                    ":30</button>";
+                $("#show_btnTime").append(html3);
+                sequence++;
+
+                var html3 =
+                    '<button type="button" class="btn btn-success" type="button" style="margin-top: 100px; width: fit-content;height: 60px;font-size: 15px;" id="' +
+                    sequence +
+                    '" name="btn_' +
+                    ix +
+                    ':45" value="' +
+                    ix +
+                    ':45" onclick="setStart(\'' +
+                    ix +
+                    ":45')\">" +
+                    ix +
+                    ":45</button>";
+                $("#show_btnTime").append(html3);
+                sequence++;
+            }
+
+            document.querySelector("button[value='" + h + ":00']").focus();
+            document.querySelector("button[value='" + h + ":00']").blur();
+        }
+
+        function setStart(value) {
+            if (statusRoom == "meeting") {
+                alertify.warning("Room is in use");
+                return false;
+            }
+
+            // if (value == '23:30' && startTime == '') {
+            //     return false;
+            // }
+
+            var btnChoose = document.querySelector(
+                "button[value='" + value + "']"
+            );
+            if (
+                btnChoose.classList.contains("btn-danger") ||
+                btnChoose.classList.contains("btn-warning")
+            ) {
+                return false;
+            }
+
+            if (startTime !== "") {
+                if (
+                    btnChoose.id <
+                    document.querySelector("button[value='" + startTime + "']")
+                        .id
+                ) {
+                    return false;
+                }
+            }
+
+            if (startTime == "") {
+                let dt = new Date();
+                dt.setMinutes(dt.getMinutes() - 5);
+
+                if (
+                    Date.parse(
+                        "01/01/2020 " +
+                            dt.getHours() +
+                            ":" +
+                            dt.getMinutes() +
+                            ":" +
+                            dt.getSeconds()
+                    ) > Date.parse("01/01/2020 " + value + ":00")
+                ) {
+                    alertify.error("The time has passed");
+                    return false;
+                }
+
+                // btnChoose.setAttribute("disabled", "");
+
+                startTime = value;
+                document.getElementById("label_start").textContent = "Start :";
+                document.getElementById("start_from").textContent = value;
+
+                btnAfter(value);
+                // btnBefore(value, btnChoose.id);
+            } else {
+                if (btnChecker(btnChoose)) {
+                    return false;
+                }
+
+                $("#show_btnTime :button")
+                    .not("button[value='" + startTime + "']")
+                    .not("button[class='btn btn-danger']")
+                    .addClass("btn-success")
+                    .removeClass("btn-info")
+                    .removeAttr("disabled");
+                btnAfter(value);
+            }
+
+            btnChoose.classList.add("btn-info");
+            btnChoose.classList.remove("btn-success");
+        }
+
+        function btnChecker(btnChoose) {
+            let from = document.querySelector(
+                "button[value='" + startTime + "']"
+            );
+            // let to = document.querySelector("button[value='" + endTime + "']");
+            let length = parseInt(btnChoose.id) - parseInt(from.id);
+
+            for (let i = 0; i < length; i++) {
+                let id = parseInt(from.id) + parseInt(i);
+                let btn = document.querySelector("button[id='" + id + "']");
+                if (
+                    btn.classList.contains("btn-danger") ||
+                    btn.classList.contains("btn-warning")
+                ) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function btnAfter(value) {
+            var time = value;
+            let tm = time.split(":");
+            let hours = parseInt(tm[0]);
+            let minutes = parseInt(tm[1]);
+            let today = new Date();
+            let month = today.getMonth();
+            let day = today.getDate();
+            let year = today.getFullYear();
+            let choose = new Date(year, month, day, hours, minutes);
+            let myStartDate = new Date(choose.getTime() + 15 * MS_PER_MINUTE);
+
+            endTime =
+                String(myStartDate.getHours()).padStart(2, "0") +
+                ":" +
+                String(myStartDate.getMinutes()).padStart(2, "0");
+            document.getElementById("label_end").textContent = "End :";
+            document.getElementById("end_from").textContent = endTime;
+            document.getElementById("btn_action").removeAttribute("hidden");
+        }
+
+        function saveData(token) {
+            if (token === null || !token) {
+                $("#modalLoginForm").modal({
+                    backdrop: "static",
+                    keyboard: false,
+                });
+                $("#formlogin").trigger("reset");
+                return false;
+            }
+
+            let formData = new URLSearchParams();
+            formData.append("start", startTime);
+            formData.append("end", endTime);
+            formData.append("platform", "tablet");
+            formData.append(
+                "meeting_name",
+                document.getElementById("meeting_name").value
+            );
+            formData.append("roomCode", localStorage.getItem("roomCode"));
+
+            const options = {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Content-Type":
+                        "application/x-www-form-urlencoded; charset=UTF-8",
+                    "X-API-KEY": token,
+                },
+            };
+            var baseUrl = localStorage.getItem("baseUrl");
+
+            document.getElementById("fetchData").style.display = "";
+            $("button[type='submit']").attr("disabled", true);
+
+            fetch(baseUrl + "/api/reservation/store", options)
+                .then((res) => res.json())
+                .then((res) => {
+                    document.getElementById("fetchData").style.display = "none";
+                    $("button[type='submit']").attr("disabled", false);
+
+                    if (res.error) {
+                        alertify.error(res.message);
+                    } else {
+                        alertify.success(res.message);
+                        $("#modalLoginForm").modal("hide");
+                        reset();
+                        getData();
+                        startMeeting();
+                        // throwing({
+                        //     action: "add-meeting",
+                        //     employee: res.employee_id,
+                        //     id_room: res.id_room,
+                        // });
+                    }
+                });
+        }
+
+        function signInAuto(dataBefore) {
+            nextMeeting = dataBefore.booking_code;
+            endMeeting = dataBefore.booking_to;
+            codeMeeting = dataBefore.booking_code;
+
+            document.body.classList.remove("bodyDanger", "bodyGo", "bodyFine");
+            document.body.classList.add("bodyDanger");
+            statusRoom = "meeting";
+
+            document.getElementById("statusRoom").textContent =
+                "In progress : " + dataBefore.meeting_name;
+            document.getElementById("infoRoom").textContent =
+                "Host: " +
+                dataBefore.name +
+                ", " +
+                dataBefore.booking_from +
+                " - " +
+                dataBefore.booking_to;
+
+            document.getElementById("btnPlay").textContent = "End";
+            document.getElementById("btnPlay").style.display = "";
+            document.getElementById("btnExtend").textContent = "Extend";
+            document.getElementById("btnExtend").style.display = "";
+        }
+
+        function reset() {
+            $("#show_btnTime :button")
+                .not(".btn-danger .btn-warning")
+                .addClass("btn-success")
+                .removeClass("btn-info")
+                .removeAttr("disabled");
+
+            endTime = "";
+            startTime = "";
+
+            document.getElementById("label_start").textContent = "";
+            document.getElementById("label_end").textContent = "";
+            document.getElementById("btn_action").setAttribute("hidden", true);
+
+            document.querySelector("#start_from").textContent = "";
+            document.querySelector("#end_from").textContent = "";
+        }
+
+        $(document).ready(function () {
+            bootTime();
+            btnTime();
+            getData();
+            startWebsocket();
+
+            $("#formlogin").submit(function (e) {
+                e.preventDefault();
+
+                const options = {
+                    method: "POST",
+                    body: $(this).serialize(),
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded; charset=UTF-8",
+                    },
+                };
+                var baseUrl = localStorage.getItem("baseUrl");
+
+                document.getElementById("fetchData").style.display = "";
+                $("button[type='submit']").attr("disabled", true);
+
+                fetch(baseUrl + "/api/employees/check_login", options)
+                    .then((res) => res.json())
+                    .then((res) => {
+                        document.getElementById("fetchData").style.display =
+                            "none";
                         $("button[type='submit']").attr("disabled", false);
 
                         if (res.error) {
                             alertify.error(res.message);
                         } else {
+                            if (res.admin) {
+                                $("#modalLoginForm").modal("hide");
+                                $("#modalSetting").modal({
+                                    backdrop: "static",
+                                    keyboard: false,
+                                });
+                                document.querySelector("#codeRandom").value =
+                                    res.data.token;
+                                return;
+                            }
 
-                            alertify.success(res.message);
-                            document.body.classList.remove('bodyDanger', 'bodyGo', 'bodyFine');
-                            document.body.classList.add('bodyFine');
-
-                            nextMeeting = "";
-                            endMeeting = "";
-                            codeMeeting = "";
-                            statusRoom = "";
-                            document.getElementById('statusRoom').textContent = ""
-                            document.getElementById('infoRoom').textContent = "";
-                            document.getElementById('btnExtend').style.display = 'none';
-                            document.getElementById('btnPlay').textContent = 'Find Meeting';
-
-                            $("#modalEnd").modal("hide");
-                            getData();
-                            startMeeting();
-
-                            throwing({
-                                'action': 'end-meeting',
-                                'employee': res.employee_id,
-                                'id_room': res.id_room,
-                                'booking_code': res.booking_code
-                            });
+                            saveData(res.data.token);
                         }
                     });
-                    
-            }
-            ,function() {
-                console.log('Cancel end meeting'); 
             });
-            
+
+            $("#formSetting").submit(function (e) {
+                e.preventDefault();
+
+                let formData = new URLSearchParams();
+                formData.append("code", document.querySelector("#code").value);
+
+                const options = {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded; charset=UTF-8",
+                        "X-API-KEY": document.querySelector("#codeRandom")
+                            .value,
+                    },
+                };
+
+                localStorage.setItem(
+                    "baseUrl",
+                    document.querySelector("#baseUrl").value
+                );
+                var baseUrl = localStorage.getItem("baseUrl");
+
+                document.getElementById("fetchData").style.display = "";
+
+                $("button[type='submit']").attr("disabled", true);
+
+                fetch(baseUrl + "/api/tablets/setTablet", options)
+                    .then((res) => res.json())
+                    .then((res) => {
+                        document.getElementById("fetchData").style.display =
+                            "none";
+                        $("button[type='submit']").attr("disabled", false);
+
+                        if (res.error) {
+                            alertify.error(res.message);
+                        } else {
+                            localStorage.setItem("nameTablet", res.area.name);
+                            localStorage.setItem("roomCode", res.data.id_rooms);
+                            localStorage.setItem(
+                                "codeTablet",
+                                document.querySelector("#code").value
+                            );
+
+                            document.getElementById(
+                                "titleRoom"
+                            ).textContent = localStorage.getItem("nameTablet");
+                            alertify.success(res.message);
+                        }
+                    });
+            });
+
+            $("#formLoginMeeting").submit(function (e) {
+                e.preventDefault();
+                if (nextMeeting == "") {
+                    return false;
+                }
+
+                let formData = new URLSearchParams();
+                formData.append(
+                    "employee_id",
+                    document.querySelector("#employee").value
+                );
+                formData.append(
+                    "password",
+                    document.querySelector("#pwd").value
+                );
+                formData.append("booking_code", nextMeeting);
+
+                const options = {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded; charset=UTF-8",
+                    },
+                };
+                var baseUrl = localStorage.getItem("baseUrl");
+
+                document.getElementById("fetchData").style.display = "";
+
+                $("button[type='submit']").attr("disabled", true);
+
+                fetch(baseUrl + "/api/reservation/checkin", options)
+                    .then((res) => res.json())
+                    .then((res) => {
+                        document.getElementById("fetchData").style.display =
+                            "none";
+                        $("button[type='submit']").attr("disabled", false);
+
+                        if (res.error) {
+                            alertify.error(res.message);
+                        } else {
+                            $("#modalLoginMeeting").modal("hide");
+
+                            alertify.success(res.message);
+                            document.body.classList.remove(
+                                "bodyDanger",
+                                "bodyGo",
+                                "bodyFine"
+                            );
+                            document.body.classList.add("bodyDanger");
+                            statusRoom = "meeting";
+
+                            document.getElementById("statusRoom").textContent =
+                                "In progress: " + res.data.meeting_name;
+                            document.getElementById("infoRoom").textContent =
+                                "Host: " +
+                                res.data.name +
+                                ", " +
+                                res.data.booking_from +
+                                " - " +
+                                res.data.booking_to;
+
+                            document.getElementById("btnPlay").textContent =
+                                "End";
+                            document.getElementById("btnExtend").textContent =
+                                "Extend";
+                            document.getElementById("btnExtend").style.display =
+                                "";
+
+                            // throwing({
+                            //     action: "start-meeting",
+                            //     employee: res.employee_id,
+                            //     id_room: res.id_room,
+                            // });
+                        }
+                    });
+            });
+
+            $("#formExtend").submit(function (e) {
+                e.preventDefault();
+
+                if (codeMeeting == "") {
+                    return false;
+                }
+                // let formData = new URLSearchParams();
+                // formData.append("booking_code", codeMeeting);
+                // formData.append("extend", document.getElementById("extend").value);
+
+                const options = {
+                    method: "POST",
+                    body: $(this).serialize() + "&booking_code=" + codeMeeting,
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded; charset=UTF-8",
+                    },
+                };
+                var baseUrl = localStorage.getItem("baseUrl");
+
+                document.getElementById("fetchData").style.display = "";
+                $("button[type='submit']").attr("disabled", true);
+
+                fetch(baseUrl + "/api/reservation/extendmeeting", options)
+                    .then((res) => res.json())
+                    .then((res) => {
+                        document.getElementById("fetchData").style.display =
+                            "none";
+                        $("button[type='submit']").attr("disabled", false);
+
+                        if (res.error) {
+                            alertify.error(res.message);
+                        } else {
+                            endMeeting = res.extendTime;
+                            document.getElementById("infoRoom").textContent =
+                                "Host: " +
+                                res.data.name +
+                                ", " +
+                                res.data.booking_from +
+                                " - " +
+                                res.extendTime;
+                            btnTime();
+                            getData();
+                            alertify.success(res.message);
+                            $("#modalExtend").modal("hide");
+
+                            // throwing({
+                            //     action: "extend-meeting",
+                            //     employee: res.employee_id,
+                            //     id_room: res.id_room,
+                            //     booking_code: res.booking_code,
+                            // });
+                        }
+                    });
+            });
+
+            $("#formEnd").submit(function (e) {
+                e.preventDefault();
+
+                if (codeMeeting == "") {
+                    return false;
+                }
+
+                alertify.confirm(
+                    "Warning",
+                    "Are you sure you want to end this meeting?",
+                    function () {
+                        $("button[type='submit']").attr("disabled", true);
+
+                        const options = {
+                            method: "POST",
+                            body:
+                                $("#formEnd").serialize() +
+                                "&booking_code=" +
+                                codeMeeting,
+                            headers: {
+                                "Content-Type":
+                                    "application/x-www-form-urlencoded; charset=UTF-8",
+                            },
+                        };
+                        var baseUrl = localStorage.getItem("baseUrl");
+
+                        document.getElementById("fetchData").style.display = "";
+
+                        fetch(baseUrl + "/api/reservation/endmeeting", options)
+                            .then((res) => res.json())
+                            .then((res) => {
+                                document.getElementById(
+                                    "fetchData"
+                                ).style.display = "none";
+                                $("button[type='submit']").attr(
+                                    "disabled",
+                                    false
+                                );
+
+                                if (res.error) {
+                                    alertify.error(res.message);
+                                } else {
+                                    alertify.success(res.message);
+                                    document.body.classList.remove(
+                                        "bodyDanger",
+                                        "bodyGo",
+                                        "bodyFine"
+                                    );
+                                    document.body.classList.add("bodyFine");
+
+                                    nextMeeting = "";
+                                    endMeeting = "";
+                                    codeMeeting = "";
+                                    statusRoom = "";
+                                    document.getElementById(
+                                        "statusRoom"
+                                    ).textContent = "";
+                                    document.getElementById(
+                                        "infoRoom"
+                                    ).textContent = "";
+                                    document.getElementById(
+                                        "btnExtend"
+                                    ).style.display = "none";
+                                    // document.getElementById(
+                                    //     "btnPlay"
+                                    // ).textContent = "Find Meeting";
+
+                                    $("#modalEnd").modal("hide");
+                                    getData();
+                                    startMeeting();
+
+                                    // throwing({
+                                    //     action: "end-meeting",
+                                    //     employee: res.employee_id,
+                                    //     id_room: res.id_room,
+                                    //     booking_code: res.booking_code,
+                                    // });
+                                }
+                            });
+                    },
+                    function () {
+                        console.log("Cancel end meeting");
+                    }
+                );
+            });
         });
-
-    });
-</script>
-
+    </script>
 </html>
