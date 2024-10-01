@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <title>Visitor Book</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.min.css" />
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/alertifyjs/css/alertify.min.css" />
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap.bundle.min.js"></script>
+    <script src="assets/alertifyjs/alertify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background: url('assets/images/background-in.png') no-repeat center center fixed;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        body.fade-in {
+            opacity: 1;
+        }
+
+        .form-container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 15px 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .logo-container img {
+            max-width: 150px;
+        }
+        .form-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .btn-custom {
+            width: 200px;
+            background-color: #005aba;
+            color: #fff;
+        }
+
+        .select2-container--default .select2-selection--single {
+            height: calc(2.25rem + 2px);
+            border: 1px solid #ced4da;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            color: #495057;
+        }
+
+        .select2-container--default .select2-selection--single:focus,
+        .select2-container--default .select2-selection--single:hover {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .select2-container--default .select2-selection__placeholder {
+            color: #6c757d;
+        }
+
+        .select2-container--default .select2-results__option {
+            padding: 0.5rem 1rem;
+        }
+    </style>
+</head>
+
+<body> 
+    <div>
+        <button id="navigationHome" class="btn btn-dark" style="background-color: transparent; border: none;">
+            <i class="fa fa-chevron-left"></i> Back
+        </button>
+    </div>
+    <div style="display: flex; justify-content: center; align-items:center; min-height: 100vh;">
+        <div class="container">
+            <div class="form-container mx-auto">
+                <!-- Logo PT -->
+                <div class="logo-container">
+                    <img src="assets/images/logogratia.png" alt="Logo PT">
+                </div>
+
+                <!-- Form Title -->
+                <div class="form-title">
+                    Buku Tamu
+                </div>
+
+                <!-- Form Buku Tamu -->
+                <form id="visitorBookForm">
+                    <!-- Nama Instansi -->
+                    <div class="form-group">
+                        <label for="namaVisitor">Nama</label>
+                        <input type="text" class="form-control" id="namaVisitor" placeholder="Masukkan nama anda" required>
+                    </div>
+
+                    <!-- Nama Instansi -->
+                    <div class="form-group">
+                        <label for="namaInstansi">Nama Instansi</label>
+                        <input type="text" class="form-control" id="namaInstansi" placeholder="Masukkan nama instansi" required>
+                    </div>
+
+                    <!-- Nomor Telepon -->
+                    <div class="form-group">
+                        <label for="nomorTelepon">Nomor Telepon</label>
+                        <input type="number" class="form-control" id="nomorTelepon" placeholder="Masukkan nomor telepon" required>
+                    </div>
+
+                    <!-- Keperluan -->
+                    <div class="form-group">
+                        <label for="keperluan">Keperluan</label>
+                        <input type="text" class="form-control" id="keperluan" placeholder="Masukan Keperluan" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="karyawan">Bertemu Dengan</label>
+                        <select class="form-control select2" id="karyawan" required>
+                            <option value="">Pilih Karyawan</option>
+                            <!-- Options akan dimasukkan di sini secara dinamis -->
+                        </select>
+                    </div>
+
+                    <!-- Tombol Submit -->
+                    <div style="display: flex; justify-content: center; margin-top: 10px;">
+                        <button type="submit" class="btn btn-custom btn-block">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  
+
+    <script>
+        // Navigate Home
+        const navigationHome = document.getElementById('navigationHome');
+        navigationHome.addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+
+        window.addEventListener('load', function() {
+            document.body.classList.add('fade-in');
+        });
+
+       $(document).ready(function() {
+            // Inisialisasi Select2
+            $('#karyawan').select2({
+                placeholder: "Pilih Karyawan",
+                allowClear: true
+            });
+
+            // Fetch data karyawan dari API
+            const baseUrl = "http://127.0.0.1:8000";
+            const selectKaryawan = $("#karyawan");
+
+            fetch(baseUrl + "/api/visitor_books/employees")
+                .then((response) => response.json())
+                .then((data) => {
+                    if (!data.error) {
+                        const karyawanList = data.data;
+
+                        karyawanList.forEach(karyawan => {
+                            const option = new Option(karyawan.name, karyawan.id, false, false);
+                            selectKaryawan.append(option).trigger('change');
+                        });
+                    } else {
+                        alertify.error(data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                    alertify.error("Terjadi kesalahan saat mengambil data karyawan.");
+                });
+
+            // Tangani submit form
+            $('#visitorBookForm').on('submit', function(e) {
+                e.preventDefault();
+
+                const data = {
+                    id_employee: $('#karyawan').val(), 
+                    id_room: "", 
+                    name: $('#namaVisitor').val(),
+                    email: $('#email').val(),
+                    phone_number: $('#nomorTelepon').val(),
+                    agency: $('#namaInstansi').val(),
+                    visitor_need: $('#keperluan').val(),
+                    date: new Date().toISOString().split('T')[0], 
+                    time: new Date().toTimeString().split(' ')[0]  
+                };
+
+                // Kirim data ke API menggunakan fetch
+                fetch(baseUrl + "/api/visitor_books/store", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (!result.error) {
+                        alertify.success("Data berhasil disimpan!");
+                        $('#visitorBookForm')[0].reset(); 
+                        $('#karyawan').val(null).trigger('change');
+                        setTimeout(function() {
+                            window.location.href = "index.html"; 
+                        }, 2000); 
+                    } else {
+                        alertify.error(result.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alertify.error("Terjadi kesalahan saat mengirim data.");
+                });
+            });
+        
+        });
+        </script>
+    </body>
+</html>
