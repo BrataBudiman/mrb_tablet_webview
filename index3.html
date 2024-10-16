@@ -806,9 +806,9 @@
         var conn;
         let swiper;
 
-        const apiUrl = "http://127.0.0.1:8000/api/booking_room_meetings/visitor";
-        const apiUrlRoomMeeting = "http://127.0.0.1:8000/api/room_meetings/visitor";
-        const apiUrlBookingRoomMeeting = "http://127.0.0.1:8000/api/booking_room_meetings/store";
+        const apiUrl = "https://payroll.gratiajayamulya.co.id/api/booking_room_meetings/visitor";
+        const apiUrlRoomMeeting = "https://payroll.gratiajayamulya.co.id/api/room_meetings/visitor";
+        const apiUrlBookingRoomMeeting = "https://payroll.gratiajayamulya.co.id/api/booking_room_meetings/store";
        
         // Navigation To Home
         const navigationHome = document.getElementById('navigationHome');
@@ -1380,7 +1380,7 @@
         }
 
         function fetchMeetings(roomId) {
-        const apiUrl = `http://127.0.0.1:8000/api/booking_room_meetings/visitor?room_id=${roomId}`;
+        const apiUrl = `https://payroll.gratiajayamulya.co.id/api/booking_room_meetings/visitor?room_id=${roomId}`;
 
         fetch(apiUrl)
             .then(response => response.json())
